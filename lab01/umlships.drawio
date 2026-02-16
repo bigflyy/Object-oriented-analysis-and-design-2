@@ -1,0 +1,182 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="aT0kVOdqB92wUmHqdVGo">
+    <mxGraphModel dx="1427" dy="2006" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="i6arZThmUDy0IHI27S8J-22" value="&lt;div&gt;&lt;i style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Starship&lt;/i&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="70" width="160" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-23" value="+ name: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-22">
+          <mxGeometry y="30" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-31" value="+ hullStrength: Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-22">
+          <mxGeometry y="56" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-30" value="+ shieldLevel: Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-22">
+          <mxGeometry y="82" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-29" value="+ speed: Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-22">
+          <mxGeometry y="108" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-27" value="+ shipType: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-22">
+          <mxGeometry y="134" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-24" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="i6arZThmUDy0IHI27S8J-22">
+          <mxGeometry y="160" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-25" value="&lt;i&gt;+ clone(): Starship&lt;/i&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-22">
+          <mxGeometry y="168" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-78" value="+ repair()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-22">
+          <mxGeometry y="194" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-42" value="Fighter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="480" width="200" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-43" value="+ shipType: String = &quot;Fighter&quot;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-42">
+          <mxGeometry y="26" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-44" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="i6arZThmUDy0IHI27S8J-42">
+          <mxGeometry y="52" width="200" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-45" value="+ clone(): Starship" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-42">
+          <mxGeometry y="60" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-54" value="Cruiser" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="480" width="200" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-55" value="+ shipType: String = &quot;Cruiser&quot;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-54">
+          <mxGeometry y="26" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-56" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="i6arZThmUDy0IHI27S8J-54">
+          <mxGeometry y="52" width="200" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-57" value="+ clone(): Starship" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-54">
+          <mxGeometry y="60" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-58" value="Bomber" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="480" width="200" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-59" value="+ shipType: String = &quot;Bomber&quot;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-58">
+          <mxGeometry y="26" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-60" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="i6arZThmUDy0IHI27S8J-58">
+          <mxGeometry y="52" width="200" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-61" value="+ clone(): Starship" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-58">
+          <mxGeometry y="60" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-62" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.027;entryY=1.051;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="i6arZThmUDy0IHI27S8J-42" target="i6arZThmUDy0IHI27S8J-78">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="810" y="390" as="sourcePoint" />
+            <mxPoint x="970" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-63" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.373;entryY=1.128;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="i6arZThmUDy0IHI27S8J-54" target="i6arZThmUDy0IHI27S8J-78">
+          <mxGeometry x="0.0066" width="160" relative="1" as="geometry">
+            <mxPoint x="810" y="390" as="sourcePoint" />
+            <mxPoint x="970" y="390" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-64" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.844;entryY=1.128;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="i6arZThmUDy0IHI27S8J-58" target="i6arZThmUDy0IHI27S8J-78">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="810" y="390" as="sourcePoint" />
+            <mxPoint x="1210" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-65" value="&lt;i&gt;WeaponSystem&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="-42" width="160" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-66" value="+ name: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-65">
+          <mxGeometry y="30" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-67" value="+ damage: Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-65">
+          <mxGeometry y="56" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-75" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;exitX=-0.018;exitY=0.089;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;" edge="1" parent="1" source="i6arZThmUDy0IHI27S8J-22" target="i6arZThmUDy0IHI27S8J-66">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1230" y="217" as="sourcePoint" />
+            <mxPoint x="1063" y="-144" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-79" value="BattleEngine" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="320" width="240" height="126" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-82" value="+ RunBattle(playerFleet: Starship[], enemyFleet: Starship[])" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-79">
+          <mxGeometry y="26" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-84" value="+ GenerateEnemyFleet(size: Integer): Starship []" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-79">
+          <mxGeometry y="76" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-83" value="" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.995;exitY=0.707;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="i6arZThmUDy0IHI27S8J-82" target="i6arZThmUDy0IHI27S8J-27">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="850" y="173" as="sourcePoint" />
+            <mxPoint x="1070" y="181" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-85" value="Color" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="60" width="160" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-86" value="+ a: Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-85">
+          <mxGeometry y="26" width="160" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-89" value="+ r: Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-85">
+          <mxGeometry y="50" width="160" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-90" value="+ g: Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-85">
+          <mxGeometry y="74" width="160" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-88" value="+ b: Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-85">
+          <mxGeometry y="98" width="160" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-91" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;entryX=1.019;entryY=-0.109;entryDx=0;entryDy=0;exitX=-0.008;exitY=0.137;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="i6arZThmUDy0IHI27S8J-30" target="i6arZThmUDy0IHI27S8J-88">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1190" y="70" as="sourcePoint" />
+            <mxPoint x="1670" y="242" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-92" value="+weapon" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="30" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-93" value="+shipColor" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="980" y="120" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-94" value="Shipyard" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="40" width="240" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-95" value="+ BuildShip(type: String): Starship" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-94">
+          <mxGeometry y="26" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-96" value="+ GetPrototype(type: String): Starship" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-94">
+          <mxGeometry y="76" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-99" value="+ CustomizeProperties(type: String, name: String, hull: Integer, shield: Integer; speed: Integer, color: Color, weaponType: WeaponType, damage: Integer): Starship" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="i6arZThmUDy0IHI27S8J-94">
+          <mxGeometry y="126" width="240" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-97" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;entryX=0.997;entryY=0.34;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="i6arZThmUDy0IHI27S8J-29" target="i6arZThmUDy0IHI27S8J-99">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1010" y="210" as="sourcePoint" />
+            <mxPoint x="1170" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-98" value="-prototypes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="610" y="165" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-102" value="" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.018;entryY=0.114;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="i6arZThmUDy0IHI27S8J-96" target="i6arZThmUDy0IHI27S8J-90">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="920" y="270" as="sourcePoint" />
+            <mxPoint x="910" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i6arZThmUDy0IHI27S8J-103" value="" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1.013;exitY=0.065;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="i6arZThmUDy0IHI27S8J-94" target="i6arZThmUDy0IHI27S8J-66">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="670" y="83" as="sourcePoint" />
+            <mxPoint x="988" y="50" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
