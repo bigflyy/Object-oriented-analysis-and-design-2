@@ -1,0 +1,105 @@
+<mxfile host="app.diagrams.net" modified="2026-02-17T12:00:00.000Z" agent="Claude Code" version="21.0.0">
+  <diagram id="prototype-pattern" name="Prototype Pattern — Class Diagram">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ==================== «interface» IStarship ==================== -->
+        <mxCell id="istarship" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;font-size:12px;&quot;&gt;&amp;laquo;interface&amp;raquo;&lt;br/&gt;&lt;b&gt;IStarship&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ name: String&lt;br/&gt;+ hullStrength: Integer&lt;br/&gt;+ maxHull: Integer&lt;br/&gt;+ shieldLevel: Integer&lt;br/&gt;+ maxShield: Integer&lt;br/&gt;+ speed: Integer&lt;br/&gt;+ shipColor: Color&lt;br/&gt;+ weapon: WeaponSystem&lt;br/&gt;+ shipType: String {readOnly}&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ clone(): IStarship&lt;br/&gt;+ getInfo(): String&lt;br/&gt;+ repair()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;strokeColor=#000000;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="560" y="30" width="260" height="290" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Starship (abstract) ==================== -->
+        <mxCell id="starship" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;font-size:12px;&quot;&gt;&lt;i&gt;&lt;b&gt;Starship&lt;/b&gt;&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ name: String&lt;br/&gt;+ hullStrength: Integer&lt;br/&gt;+ maxHull: Integer&lt;br/&gt;+ shieldLevel: Integer&lt;br/&gt;+ maxShield: Integer&lt;br/&gt;+ speed: Integer&lt;br/&gt;+ shipColor: Color&lt;br/&gt;+ weapon: WeaponSystem&lt;br/&gt;+ shipType: String {readOnly}&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;# Starship(name, hull, shield,&lt;br/&gt;    speed, color, weapon)&lt;br/&gt;# Starship(name, hull, maxHull,&lt;br/&gt;    shield, maxShield, speed,&lt;br/&gt;    color, weapon)&lt;br/&gt;&lt;i&gt;+ clone(): IStarship&lt;/i&gt;&lt;br/&gt;+ getInfo(): String&lt;br/&gt;+ repair()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;strokeColor=#000000;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="510" y="400" width="260" height="320" as="geometry" />
+        </mxCell>
+
+        <!-- Realization: Starship - - -▷ IStarship (dashed + unfilled triangle) -->
+        <mxCell id="realization1" style="endArrow=block;dashed=1;endFill=0;endSize=16;strokeWidth=1.5;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" source="starship" target="istarship" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Fighter ==================== -->
+        <mxCell id="fighter" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;font-size:12px;&quot;&gt;&lt;b&gt;Fighter&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ shipType: String = &amp;quot;Fighter&amp;quot;&lt;br/&gt;  {readOnly}&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ Fighter(name, hull, shield,&lt;br/&gt;    speed, color, weapon)&lt;br/&gt;- Fighter(name, hull, maxHull,&lt;br/&gt;    shield, maxShield, speed,&lt;br/&gt;    color, weapon)&lt;br/&gt;+ clone(): IStarship&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;strokeColor=#000000;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="110" y="820" width="260" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Cruiser ==================== -->
+        <mxCell id="cruiser" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;font-size:12px;&quot;&gt;&lt;b&gt;Cruiser&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ shipType: String = &amp;quot;Cruiser&amp;quot;&lt;br/&gt;  {readOnly}&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ Cruiser(name, hull, shield,&lt;br/&gt;    speed, color, weapon)&lt;br/&gt;- Cruiser(name, hull, maxHull,&lt;br/&gt;    shield, maxShield, speed,&lt;br/&gt;    color, weapon)&lt;br/&gt;+ clone(): IStarship&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;strokeColor=#000000;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="510" y="820" width="260" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Bomber ==================== -->
+        <mxCell id="bomber" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;font-size:12px;&quot;&gt;&lt;b&gt;Bomber&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ shipType: String = &amp;quot;Bomber&amp;quot;&lt;br/&gt;  {readOnly}&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ Bomber(name, hull, shield,&lt;br/&gt;    speed, color, weapon)&lt;br/&gt;- Bomber(name, hull, maxHull,&lt;br/&gt;    shield, maxShield, speed,&lt;br/&gt;    color, weapon)&lt;br/&gt;+ clone(): IStarship&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;strokeColor=#000000;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="910" y="820" width="260" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Generalization: Fighter ——▷ Starship (solid + unfilled triangle) -->
+        <mxCell id="gen1" style="endArrow=block;endFill=0;endSize=16;strokeWidth=1.5;exitX=0.5;exitY=0;entryX=0.2;entryY=1;" edge="1" source="fighter" target="starship" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Generalization: Cruiser ——▷ Starship -->
+        <mxCell id="gen2" style="endArrow=block;endFill=0;endSize=16;strokeWidth=1.5;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" source="cruiser" target="starship" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Generalization: Bomber ——▷ Starship -->
+        <mxCell id="gen3" style="endArrow=block;endFill=0;endSize=16;strokeWidth=1.5;exitX=0.5;exitY=0;entryX=0.8;entryY=1;" edge="1" source="bomber" target="starship" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== WeaponSystem ==================== -->
+        <mxCell id="weapon" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;font-size:12px;&quot;&gt;&lt;b&gt;WeaponSystem&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ type: WeaponType&lt;br/&gt;+ damage: Integer&lt;br/&gt;+ name: String {readOnly}&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;+ WeaponSystem(type, damage)&lt;br/&gt;+ clone(): WeaponSystem&lt;br/&gt;+ toString(): String&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;strokeColor=#000000;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="80" width="260" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== «enumeration» WeaponType ==================== -->
+        <mxCell id="weapontype" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;font-size:12px;&quot;&gt;&amp;laquo;enumeration&amp;raquo;&lt;br/&gt;&lt;b&gt;WeaponType&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:6px;font-size:11px;font-family:monospace;&quot;&gt;LaserCannon&lt;br/&gt;PlasmaTurret&lt;br/&gt;MissileRack&lt;br/&gt;TorpedoBay&lt;br/&gt;IonBeam&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;strokeColor=#000000;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="330" width="200" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Composition: IStarship ◆———— WeaponSystem (filled diamond on IStarship side) -->
+        <mxCell id="comp1" style="endArrow=none;startArrow=diamondThin;startFill=1;startSize=16;strokeWidth=1.5;exitX=0;exitY=0.4;entryX=1;entryY=0.4;" edge="1" source="weapon" target="istarship" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Multiplicity: 1 on IStarship side, 1 on WeaponSystem side -->
+        <mxCell id="mult_comp_1" value="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="825" y="135" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="mult_comp_2" value="1" style="text;html=1;align=right;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="995" y="135" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="role_weapon" value="+weapon" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="880" y="155" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Dependency: WeaponSystem - - - -> WeaponType (dashed arrow) -->
+        <mxCell id="dep1" style="endArrow=open;dashed=1;endFill=0;endSize=12;strokeWidth=1.5;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="weapon" target="weapontype" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Notes ==================== -->
+        <mxCell id="note1" value="&lt;b&gt;Паттерн Прототип (Prototype):&lt;/b&gt;&lt;br&gt;&lt;br&gt;Метод clone() создаёт &lt;b&gt;глубокую&lt;br/&gt;копию&lt;/b&gt; корабля, включая объект&lt;br/&gt;WeaponSystem (ссылочный тип).&lt;br/&gt;&lt;br/&gt;Каждый конкретный класс имеет&lt;br/&gt;&lt;b&gt;закрытый конструктор&lt;/b&gt; для&lt;br/&gt;клонирования, сохраняющий&lt;br/&gt;maxHull и maxShield." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;fillColor=#FFFFCC;strokeColor=#000000;fontSize=11;align=left;spacingLeft=5;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="260" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Dashed line from note to IStarship -->
+        <mxCell id="note1_link" style="endArrow=none;dashed=1;strokeWidth=1;strokeColor=#999999;" edge="1" source="note1" target="istarship" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note2" value="&lt;b&gt;Глубокое копирование:&lt;/b&gt;&lt;br&gt;&lt;br&gt;WeaponSystem.clone() создаёт&lt;br/&gt;независимую копию. Изменение&lt;br/&gt;оружия клона не влияет на&lt;br/&gt;оригинал." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;fillColor=#FFFFCC;strokeColor=#000000;fontSize=11;align=left;spacingLeft=5;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="80" width="230" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Dashed line from note to WeaponSystem -->
+        <mxCell id="note2_link" style="endArrow=none;dashed=1;strokeWidth=1;strokeColor=#999999;" edge="1" source="note2" target="weapon" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
