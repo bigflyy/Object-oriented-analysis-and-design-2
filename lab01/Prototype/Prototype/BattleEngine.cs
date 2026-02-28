@@ -1,13 +1,10 @@
-// =============================================================================
 // BattleEngine.cs — Движок пошагового боя флотов
-// =============================================================================
 // Этот класс управляет автоматическим боем между двумя флотами:
 //   - Сортирует корабли по скорости (инициатива)
 //   - Проводит пошаговый бой: каждый корабль атакует случайного врага
 //   - Урон сначала снижает щит, затем корпус
 //   - Генерирует лог событий боя (кто атаковал, сколько урона, кто уничтожен)
 //   - Определяет победителя (последний выживший флот)
-// =============================================================================
 
 using Prototype.Models;
 
@@ -19,7 +16,7 @@ namespace Prototype
         public string Message { get; set; } = "";  // Текст события для лога
         public bool IsVictory { get; set; }        // true = бой завершён, объявлен победитель
         public int RoundNumber { get; set; }       // Номер раунда (0 = начало/конец боя)
-        public Starship? HitTarget { get; set; }  // Корабль, который был атакован (для подсветки)
+        public Starship HitTarget { get; set; }  // Корабль, который был атакован (для подсветки)
     }
 
     /// Движок пошагового боя между двумя флотами.
@@ -29,7 +26,7 @@ namespace Prototype
         private Random _rnd = new Random();
 
         /// Добавляет событие в лог и вызывает async callback для обновления UI.
-        private async Task AddEventAsync(List<BattleEvent> log, BattleEvent evt, Func<BattleEvent, Task>? onEvent)
+        private async Task AddEventAsync(List<BattleEvent> log, BattleEvent evt, Func<BattleEvent, Task> onEvent)
         {
             log.Add(evt);
             if (onEvent != null)
@@ -48,7 +45,7 @@ namespace Prototype
         /// Уничтоженные корабли будут удалены из списков,
         /// повреждённые корабли сохранят сниженные Hull и Shield.
         public async Task<List<BattleEvent>> RunBattleAsync(List<Starship> playerFleet, List<Starship> enemyFleet,
-            Func<BattleEvent, Task>? onEvent = null)
+            Func<BattleEvent, Task> onEvent = null)
         {
             var log = new List<BattleEvent>();
 

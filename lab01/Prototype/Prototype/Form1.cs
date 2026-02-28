@@ -1,17 +1,15 @@
-// =============================================================================
 // Form1.cs — Основная логика формы (обработчики событий и управление флотом)
-// =============================================================================
-// Этот файл содержит бизнес-логику приложения:
+// Этот файл содержит логику приложения:
 //   - Загрузка прототипов кораблей (Fighter, Cruiser, Bomber)
 //   - Обработка изменений свойств (имя, корпус, щит, скорость, цвет, оружие)
 //   - Клонирование корабля в флот (паттерн Прототип — метод Clone)
-//   - Демонстрация глубокого копирования (Deep Copy Demo)
+//   - Демонстрация глубокого копирования
 //   - Отрисовка предпросмотра корабля и панели информации
 //
-// Визуальная часть формы (расположение контролов) — в Form1.Designer.cs.
-// =============================================================================
+// Визуальная часть формы (расположение элементов) — в Form1.Designer.cs.
 
 using Prototype.Models;
+using Prototype.UI;
 
 namespace Prototype
 {
@@ -29,7 +27,7 @@ namespace Prototype
         private readonly List<Starship> _fleet = new();
 
         // Флаг для предотвращения рекурсивных обновлений:
-        // когда мы программно устанавливаем значения контролов (в LoadPrototype),
+        // когда мы программно устанавливаем значения элементов (в LoadPrototype),
         // не нужно срабатывать обработчикам OnPropertyChanged.
         private bool _updatingUI;
 
@@ -49,7 +47,152 @@ namespace Prototype
         public Form1()
         {
             InitializeComponent();
+            InitializeCustomControls();
             LoadPrototype();
+        }
+
+        /// Создаёт элементы, которые VS Designer не может обработать:
+        /// надписи и числовые поля (созданные через вспомогательные методы),
+        /// а также кастомные элементы (DoubleBufferedPanel, FleetPanel).
+        private void InitializeCustomControls()
+        {
+            // Надписи для левой панели (leftGrid)
+            lblName = new Label();
+            lblName.Text = "Name:";
+            lblName.ForeColor = Color.FromArgb(200, 200, 220);
+            lblName.Font = new Font("Segoe UI", 9.5f);
+            lblName.Dock = DockStyle.Fill;
+            lblName.TextAlign = ContentAlignment.MiddleLeft;
+            leftGrid.Controls.Add(lblName, 0, 3);
+
+            lblHull = new Label();
+            lblHull.Text = "Hull:";
+            lblHull.ForeColor = Color.FromArgb(200, 200, 220);
+            lblHull.Font = new Font("Segoe UI", 9.5f);
+            lblHull.Dock = DockStyle.Fill;
+            lblHull.TextAlign = ContentAlignment.MiddleLeft;
+            leftGrid.Controls.Add(lblHull, 0, 4);
+
+            lblShield = new Label();
+            lblShield.Text = "Shield:";
+            lblShield.ForeColor = Color.FromArgb(200, 200, 220);
+            lblShield.Font = new Font("Segoe UI", 9.5f);
+            lblShield.Dock = DockStyle.Fill;
+            lblShield.TextAlign = ContentAlignment.MiddleLeft;
+            leftGrid.Controls.Add(lblShield, 0, 5);
+
+            lblSpeed = new Label();
+            lblSpeed.Text = "Speed:";
+            lblSpeed.ForeColor = Color.FromArgb(200, 200, 220);
+            lblSpeed.Font = new Font("Segoe UI", 9.5f);
+            lblSpeed.Dock = DockStyle.Fill;
+            lblSpeed.TextAlign = ContentAlignment.MiddleLeft;
+            leftGrid.Controls.Add(lblSpeed, 0, 6);
+
+            lblColor = new Label();
+            lblColor.Text = "Color:";
+            lblColor.ForeColor = Color.FromArgb(200, 200, 220);
+            lblColor.Font = new Font("Segoe UI", 9.5f);
+            lblColor.Dock = DockStyle.Fill;
+            lblColor.TextAlign = ContentAlignment.MiddleLeft;
+            leftGrid.Controls.Add(lblColor, 0, 7);
+
+            lblWeapon = new Label();
+            lblWeapon.Text = "Weapon:";
+            lblWeapon.ForeColor = Color.FromArgb(200, 200, 220);
+            lblWeapon.Font = new Font("Segoe UI", 9.5f);
+            lblWeapon.Dock = DockStyle.Fill;
+            lblWeapon.TextAlign = ContentAlignment.MiddleLeft;
+            leftGrid.Controls.Add(lblWeapon, 0, 9);
+
+            lblDamage = new Label();
+            lblDamage.Text = "Damage:";
+            lblDamage.ForeColor = Color.FromArgb(200, 200, 220);
+            lblDamage.Font = new Font("Segoe UI", 9.5f);
+            lblDamage.Dock = DockStyle.Fill;
+            lblDamage.TextAlign = ContentAlignment.MiddleLeft;
+            leftGrid.Controls.Add(lblDamage, 0, 10);
+
+            // Числовые поля
+            nudHull = new NumericUpDown();
+            nudHull.Dock = DockStyle.Fill;
+            nudHull.Minimum = 10;
+            nudHull.Maximum = 200;
+            nudHull.Value = 60;
+            nudHull.BackColor = Color.FromArgb(50, 50, 75);
+            nudHull.ForeColor = Color.White;
+            nudHull.Font = new Font("Segoe UI", 9.5f);
+            nudHull.BorderStyle = BorderStyle.FixedSingle;
+            nudHull.ValueChanged += OnPropertyChanged;
+            leftGrid.Controls.Add(nudHull, 1, 4);
+
+            nudShield = new NumericUpDown();
+            nudShield.Dock = DockStyle.Fill;
+            nudShield.Minimum = 0;
+            nudShield.Maximum = 150;
+            nudShield.Value = 30;
+            nudShield.BackColor = Color.FromArgb(50, 50, 75);
+            nudShield.ForeColor = Color.White;
+            nudShield.Font = new Font("Segoe UI", 9.5f);
+            nudShield.BorderStyle = BorderStyle.FixedSingle;
+            nudShield.ValueChanged += OnPropertyChanged;
+            leftGrid.Controls.Add(nudShield, 1, 5);
+
+            nudSpeed = new NumericUpDown();
+            nudSpeed.Dock = DockStyle.Fill;
+            nudSpeed.Minimum = 10;
+            nudSpeed.Maximum = 200;
+            nudSpeed.Value = 180;
+            nudSpeed.BackColor = Color.FromArgb(50, 50, 75);
+            nudSpeed.ForeColor = Color.White;
+            nudSpeed.Font = new Font("Segoe UI", 9.5f);
+            nudSpeed.BorderStyle = BorderStyle.FixedSingle;
+            nudSpeed.ValueChanged += OnPropertyChanged;
+            leftGrid.Controls.Add(nudSpeed, 1, 6);
+
+            nudDamage = new NumericUpDown();
+            nudDamage.Dock = DockStyle.Fill;
+            nudDamage.Minimum = 5;
+            nudDamage.Maximum = 100;
+            nudDamage.Value = 25;
+            nudDamage.BackColor = Color.FromArgb(50, 50, 75);
+            nudDamage.ForeColor = Color.White;
+            nudDamage.Font = new Font("Segoe UI", 9.5f);
+            nudDamage.BorderStyle = BorderStyle.FixedSingle;
+            nudDamage.ValueChanged += OnPropertyChanged;
+            leftGrid.Controls.Add(nudDamage, 1, 10);
+
+            // Панель предпросмотра корабля (кастомный элемент с двойной буферизацией)
+            panelPreview = new DoubleBufferedPanel();
+            panelPreview.Dock = DockStyle.Fill;
+            panelPreview.BackColor = Color.FromArgb(10, 10, 25);
+            panelPreview.BorderStyle = BorderStyle.FixedSingle;
+            panelPreview.Paint += PanelPreview_Paint;
+            previewContainer.Controls.Add(panelPreview);
+            // Fill должен быть впереди (index 0), а Top-лейбл — позади (index 1),
+            // чтобы WinForms корректно разместил: сначала Label (Top), потом Panel (Fill)
+            panelPreview.BringToFront();
+
+            // Панель информации о корабле
+            panelInfo = new DoubleBufferedPanel();
+            panelInfo.Dock = DockStyle.Fill;
+            panelInfo.BackColor = Color.FromArgb(10, 10, 25);
+            panelInfo.BorderStyle = BorderStyle.FixedSingle;
+            panelInfo.Paint += PanelInfo_Paint;
+            infoContainer.Controls.Add(panelInfo);
+            panelInfo.BringToFront();
+
+            // Панель флота игрока (кастомный элемент)
+            playerFleetPanel = new FleetPanel();
+            playerFleetPanel.Dock = DockStyle.Fill;
+            playerFleetContainer.Controls.Add(playerFleetPanel);
+            playerFleetPanel.BringToFront();
+
+            // Панель вражеского флота
+            enemyFleetPanel = new FleetPanel();
+            enemyFleetPanel.Dock = DockStyle.Fill;
+            enemyFleetContainer.Controls.Add(enemyFleetPanel);
+            enemyFleetPanel.BringToFront();
         }
 
         // =====================================================================
@@ -57,7 +200,7 @@ namespace Prototype
         // =====================================================================
 
         /// Создаёт новый корабль-прототип в зависимости от выбранного RadioButton.
-        /// Затем синхронизирует все контролы интерфейса с его свойствами.
+        /// Затем синхронизирует все элементы интерфейса с его свойствами.
         ///
         /// Флаг _updatingUI предотвращает срабатывание OnPropertyChanged
         /// при программной установке значений (иначе была бы бесконечная рекурсия).
@@ -71,7 +214,7 @@ namespace Prototype
                         : "Bomber";
             _currentShip = _shipyard.GetPrototype(type);
 
-            // Синхронизируем контролы интерфейса с данными корабля.
+            // Синхронизируем элементы интерфейса с данными корабля.
             // Clamp — ограничивает значение пределами NumericUpDown,
             // чтобы не было исключения при выходе за Min/Max.
             txtName.Text = _currentShip.Name;
@@ -102,7 +245,7 @@ namespace Prototype
         /// Обработчик переключения типа прототипа (RadioButton).
         /// Вызывается при нажатии на Fighter / Cruiser / Bomber.
         /// Перезагружает корабль с настройками по умолчанию для нового типа.
-        private void OnPrototypeChanged(object? sender, EventArgs e)
+        private void OnPrototypeChanged(object sender, EventArgs e)
         {
             // Проверяем, что это RadioButton и он выбран
             // (событие CheckedChanged срабатывает и при снятии, и при установке)
@@ -112,16 +255,16 @@ namespace Prototype
 
         /// Обработчик изменения любого свойства корабля
         /// (имя, корпус, щит, скорость, урон, тип оружия, цвет).
-        /// Считывает значения из контролов и обновляет объект _currentShip.
+        /// Считывает значения из элементов и обновляет объект _currentShip.
         /// Затем перерисовывает панели.
         ///
         /// Флаг _updatingUI не даёт этому методу сработать, когда мы
-        /// программно меняем значения контролов в LoadPrototype().
-        private void OnPropertyChanged(object? sender, EventArgs e)
+        /// программно меняем значения элементов в LoadPrototype().
+        private void OnPropertyChanged(object sender, EventArgs e)
         {
             if (_updatingUI || _currentShip == null) return;
 
-            // Считываем значения из контролов интерфейса
+            // Считываем значения из элементов интерфейса
             string name = txtName.Text;
             int hull = (int)nudHull.Value;
             int shield = (int)nudShield.Value;
@@ -150,7 +293,7 @@ namespace Prototype
         /// Кнопка «Clone to Fleet» — КЛОНИРОВАНИЕ (паттерн Прототип).
         /// Верфь клонирует текущий прототип, создавая глубокую копию.
         /// Добавляет клон в список флота. Клон полностью независим от прототипа.
-        private void BtnClone_Click(object? sender, EventArgs e)
+        private void BtnClone_Click(object sender, EventArgs e)
         {
             string type = _currentShip.ShipType;
             Starship clone = _shipyard.BuildShip(type);  // Верфь клонирует прототип!
@@ -168,7 +311,7 @@ namespace Prototype
         ///
         /// Если бы Clone() был поверхностным, оригинал и клон делили бы
         /// один объект WeaponSystem, и урон изменился бы у обоих.
-        private void BtnDeepCopyDemo_Click(object? sender, EventArgs e)
+        private void BtnDeepCopyDemo_Click(object sender, EventArgs e)
         {
             // Шаг 1: Создаём оригинал (клонируем текущий, чтобы не менять его)
             Starship original = _currentShip.Clone();
@@ -202,7 +345,7 @@ namespace Prototype
         }
 
         /// Кнопка «Clear Fleet» — очищает список флота и вражеского флота.
-        private void BtnClearFleet_Click(object? sender, EventArgs e)
+        private void BtnClearFleet_Click(object sender, EventArgs e)
         {
             _fleet.Clear();
             RefreshFleetDisplay();
@@ -232,7 +375,7 @@ namespace Prototype
         /// - Урон сначала снижает щит, затем корпус
         /// - Уничтоженные корабли удаляются ИЗ ФЛОТА (реальные последствия!)
         /// - Бой продолжается до полного уничтожения одного из флотов
-        private async void BtnBattle_Click(object? sender, EventArgs e)
+        private async void BtnBattle_Click(object sender, EventArgs e)
         {
             // Проверяем, есть ли корабли во флоте
             if (_fleet.Count == 0)
@@ -365,7 +508,7 @@ namespace Prototype
         /// Кнопка «Repair Fleet» — ремонтирует все корабли во флоте.
         /// Восстанавливает Hull и Shield всех кораблей до их максимальных значений.
         /// Полезно после боя для подготовки к следующему сражению.
-        private void BtnRepair_Click(object? sender, EventArgs e)
+        private void BtnRepair_Click(object sender, EventArgs e)
         {
             if (_fleet.Count == 0)
             {
@@ -424,7 +567,7 @@ namespace Prototype
         /// Корабль рисуется с ограничением размера (макс 350×250),
         /// чтобы он не растягивался до неприличных размеров на больших окнах.
         /// Позиция центрируется в доступной области.
-        private void PanelPreview_Paint(object? sender, PaintEventArgs e)
+        private void PanelPreview_Paint(object sender, PaintEventArgs e)
         {
             if (_currentShip == null) return;
 
@@ -451,7 +594,7 @@ namespace Prototype
         ///   - Щит (голубой)        — макс 150
         ///   - Скорость (жёлтый)    — макс 200
         ///   - Урон (оранжево-красный) — макс 100
-        private void PanelInfo_Paint(object? sender, PaintEventArgs e)
+        private void PanelInfo_Paint(object sender, PaintEventArgs e)
         {
             if (_currentShip == null) return;
 
@@ -467,44 +610,50 @@ namespace Prototype
             using var valueBrush = new SolidBrush(Color.LightGreen);                 // зелёный для имени
             using var dimBrush = new SolidBrush(Color.FromArgb(170, Color.Silver));  // серый для оружия
 
-            int x = 12, y = 10;                                       // начальная позиция текста
-            int barX = 12;                                              // отступ прогресс-баров
+            // Вычисляем размер строки для адаптивных отступов (учитывает DPI)
+            int lineH = (int)g.MeasureString("X", font).Height;
+            int headerH = (int)g.MeasureString("X", headerFont).Height;
+            int barH = Math.Max(14, lineH / 2);  // высота прогресс-бара
+            int gap = Math.Max(6, lineH / 3);    // отступ между элементами
+
+            int x = 12, y = headerH;             // начальная позиция — отступ = высота заголовка
+            int barX = 12;                        // отступ прогресс-баров
             int barMaxW = Math.Max(50, panelInfo.ClientSize.Width - 30); // ширина баров (адаптивная)
 
             // --- Заголовок: тип корабля ---
             g.DrawString($"Type: {_currentShip.ShipType}", headerFont, brush, x, y);
-            y += 26;
+            y += headerH + gap;
 
             // --- Имя корабля (зелёным цветом) ---
             g.DrawString($"Name: {_currentShip.Name}", font, valueBrush, x, y);
-            y += 26;
+            y += lineH + gap + 4;
 
             // --- Корпус + зелёный прогресс-бар ---
             g.DrawString($"Hull: {_currentShip.HullStrength}", font, brush, x, y);
-            y += 18;
-            DrawBar(g, barX, y, barMaxW, 12, _currentShip.HullStrength, 200, Color.Green);
-            y += 22;
+            y += lineH + 2;
+            DrawBar(g, barX, y, barMaxW, barH, _currentShip.HullStrength, 200, Color.Green);
+            y += barH + gap + 2;
 
             // --- Щит + голубой прогресс-бар ---
             g.DrawString($"Shield: {_currentShip.ShieldLevel}", font, brush, x, y);
-            y += 18;
-            DrawBar(g, barX, y, barMaxW, 12, _currentShip.ShieldLevel, 150, Color.DodgerBlue);
-            y += 22;
+            y += lineH + 2;
+            DrawBar(g, barX, y, barMaxW, barH, _currentShip.ShieldLevel, 150, Color.DodgerBlue);
+            y += barH + gap + 2;
 
             // --- Скорость + жёлтый прогресс-бар ---
             g.DrawString($"Speed: {_currentShip.Speed}", font, brush, x, y);
-            y += 18;
-            DrawBar(g, barX, y, barMaxW, 12, _currentShip.Speed, 200, Color.Yellow);
-            y += 26;
+            y += lineH + 2;
+            DrawBar(g, barX, y, barMaxW, barH, _currentShip.Speed, 200, Color.Yellow);
+            y += barH + gap + 6;
 
             // --- Тип оружия (серым, приглушённым цветом) ---
             g.DrawString($"Weapon: {_currentShip.Weapon.Name}", font, dimBrush, x, y);
-            y += 22;
+            y += lineH + gap;
 
             // --- Урон + оранжево-красный прогресс-бар ---
             g.DrawString($"Damage: {_currentShip.Weapon.Damage}", font, brush, x, y);
-            y += 18;
-            DrawBar(g, barX, y, barMaxW, 12, _currentShip.Weapon.Damage, 100, Color.OrangeRed);
+            y += lineH + 2;
+            DrawBar(g, barX, y, barMaxW, barH, _currentShip.Weapon.Damage, 100, Color.OrangeRed);
         }
 
         /// Рисует горизонтальный прогресс-бар.

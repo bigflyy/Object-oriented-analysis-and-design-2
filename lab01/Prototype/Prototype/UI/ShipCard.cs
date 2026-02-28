@@ -1,20 +1,17 @@
-// =============================================================================
 // ShipCard.cs — Визуальная карточка корабля для отображения во флоте
-// =============================================================================
-// Пользовательский контрол (UserControl) для отображения одного корабля
+// Пользовательский элемент (UserControl) для отображения одного корабля
 // с миниатюрным превью, названием и прогресс-барами HP/Shield.
 // Используется в FleetPanel для визуального представления флота.
-// =============================================================================
 
 using Prototype.Models;
 
-namespace Prototype
+namespace Prototype.UI
 {
     /// Карточка корабля — компактное визуальное представление одного корабля.
     /// Показывает миниатюрный предпросмотр, имя, тип и прогресс-бары здоровья/щита.
     public class ShipCard : UserControl
     {
-        private Starship? _ship;           // Корабль для отображения
+        private Starship _ship;           // Корабль для отображения
         private Panel _previewPanel = null!;        // Панель для GDI+ рисования мини-корабля
         private Label _nameLabel = null!;           // Метка с именем и типом корабля
         private Panel _hullBarBackground = null!;   // Фон для бара корпуса
@@ -43,7 +40,7 @@ namespace Prototype
             UpdateDisplay();
         }
 
-        /// Инициализирует все контролы карточки.
+        /// Инициализирует все элементы карточки.
         private void InitializeControls()
         {
             // Настройка самой карточки (увеличенный размер для лучшей читаемости)
@@ -107,7 +104,7 @@ namespace Prototype
             _statsLabel.Text = "Spd:180 Dmg:25";
             _statsLabel.TextAlign = ContentAlignment.MiddleCenter;
 
-            // Добавляем все контролы на карточку
+            // Добавляем все элементы на карточку
             this.Controls.Add(_previewPanel);
             this.Controls.Add(_nameLabel);
             this.Controls.Add(_hullBarBackground);
@@ -152,7 +149,7 @@ namespace Prototype
 
         /// Обработчик отрисовки панели предпросмотра корабля.
         /// Рисует миниатюрную версию корабля с помощью ShipRenderer.
-        private void PreviewPanel_Paint(object? sender, PaintEventArgs e)
+        private void PreviewPanel_Paint(object sender, PaintEventArgs e)
         {
             if (_ship == null) return;
 
@@ -162,7 +159,7 @@ namespace Prototype
         }
 
         /// Обработчик отрисовки карточки — рисует красную рамку при получении урона.
-        private void Card_Paint(object? sender, PaintEventArgs e)
+        private void Card_Paint(object sender, PaintEventArgs e)
         {
             if (_isHighlighted)
             {

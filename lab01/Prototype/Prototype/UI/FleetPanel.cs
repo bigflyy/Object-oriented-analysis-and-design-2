@@ -1,15 +1,12 @@
-// =============================================================================
 // FleetPanel.cs — Панель для отображения флота кораблей
-// =============================================================================
-// Пользовательский контрол (Panel) для отображения списка кораблей
+// Пользовательский элемент (Panel) для отображения списка кораблей
 // в виде вертикального ряда визуальных карточек (ShipCard).
 // Поддерживает прокрутку при большом количестве кораблей.
 // Используется для отображения как флота игрока, так и вражеского флота.
-// =============================================================================
 
 using Prototype.Models;
 
-namespace Prototype
+namespace Prototype.UI
 {
     /// Панель флота — контейнер для визуального отображения списка кораблей.
     /// Автоматически создаёт карточки (ShipCard) для каждого корабля
@@ -24,12 +21,12 @@ namespace Prototype
             InitializeControls();
         }
 
-        /// Инициализирует контролы панели флота.
+        /// Инициализирует элементы панели флота.
         private void InitializeControls()
         {
             // Настройка самой панели
             this.BackColor = Color.FromArgb(20, 20, 35);
-            this.Padding = new Padding(5);
+            this.Padding = new Padding(5, 8, 5, 5);
 
             // Контейнер для карточек кораблей (вертикальный список с прокруткой)
             _cardContainer = new FlowLayoutPanel();
@@ -49,7 +46,7 @@ namespace Prototype
             _emptyLabel.Dock = DockStyle.Fill;
             _emptyLabel.Visible = true;  // По умолчанию видна
 
-            // Добавляем контролы
+            // Добавляем элементы
             this.Controls.Add(_cardContainer);
             this.Controls.Add(_emptyLabel);
 
@@ -109,7 +106,7 @@ namespace Prototype
         /// Подсвечивает карточку указанного корабля красным (эффект получения урона).
         public async Task<bool> FlashShip(Starship ship)
         {
-            // Ищем карточку корабля среди дочерних контролов
+            // Ищем карточку корабля среди дочерних элементов
             foreach (Control control in _cardContainer.Controls)
             {
                 if (control is ShipCard card && card.Tag == ship)
