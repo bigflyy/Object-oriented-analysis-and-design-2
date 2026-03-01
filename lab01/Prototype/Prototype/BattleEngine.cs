@@ -16,7 +16,8 @@ namespace Prototype
         public string Message { get; set; } = "";  // Текст события для лога
         public bool IsVictory { get; set; }        // true = бой завершён, объявлен победитель
         public int RoundNumber { get; set; }       // Номер раунда (0 = начало/конец боя)
-        public Starship HitTarget { get; set; }  // Корабль, который был атакован (для подсветки)
+        public Starship Target { get; set; }       // Корабль-цель (для подсветки)
+        public bool IsMiss { get; set; }           // true = промах, false = попадание
     }
 
     /// Движок пошагового боя между двумя флотами.
@@ -33,19 +34,14 @@ namespace Prototype
                 await onEvent(evt);
         }
 
-        /// Запускает бой между двумя флотами (синхронная версия без UI обновлений).
-        public List<BattleEvent> RunBattle(List<Starship> playerFleet, List<Starship> enemyFleet)
-        {
-            return RunBattleAsync(playerFleet, enemyFleet, null).GetAwaiter().GetResult();
-        }
-
         /// Запускает бой между двумя флотами (асинхронно с возможностью обновления UI).
         /// Возвращает список событий (лог боя).
-        /// ВНИМАНИЕ: Бой модифицирует исходные флоты!
+        /// Бой модифицирует исходные флоты!
         /// Уничтоженные корабли будут удалены из списков,
         /// повреждённые корабли сохранят сниженные Hull и Shield.
         public async Task<List<BattleEvent>> RunBattleAsync(List<Starship> playerFleet, List<Starship> enemyFleet,
-            Func<BattleEvent, Task> onEvent = null)
+            Func<BattleEvent, Task> onEvent = null,
+            Func<List<Starship>, List<Starship>, Task<Dictionary<Starship, Starship>>> onAssignTargets = null)
         {
             var log = new List<BattleEvent>();
 
@@ -54,16 +50,16 @@ namespace Prototype
             {
                 await AddEventAsync(log, new BattleEvent
                 {
-                    Message = "Cannot start battle: one or both fleets are empty!",
+                    Message = "Невозможно начать бой: один или оба флота пусты!",
                     IsVictory = false,
                     RoundNumber = 0
                 }, onEvent);
                 return log;
             }
 
-            await AddEventAsync(log, new BattleEvent { Message = "=== BATTLE START ===", RoundNumber = 0 }, onEvent);
-            await AddEventAsync(log, new BattleEvent { Message = $"Player Fleet: {playerFleet.Count} ships", RoundNumber = 0 }, onEvent);
-            await AddEventAsync(log, new BattleEvent { Message = $"Enemy Fleet: {enemyFleet.Count} ships", RoundNumber = 0 }, onEvent);
+            await AddEventAsync(log, new BattleEvent { Message = "=== НАЧАЛО БОЯ ===", RoundNumber = 0 }, onEvent);
+            await AddEventAsync(log, new BattleEvent { Message = $"Флот игрока: {playerFleet.Count} кораблей", RoundNumber = 0 }, onEvent);
+            await AddEventAsync(log, new BattleEvent { Message = $"Флот врага: {enemyFleet.Count} кораблей", RoundNumber = 0 }, onEvent);
             await AddEventAsync(log, new BattleEvent { Message = "", RoundNumber = 0 }, onEvent);
 
             // Работаем напрямую с исходными флотами (БЕЗ клонирования)
@@ -76,7 +72,12 @@ namespace Prototype
             // Главный цикл боя — пока оба флота живы
             while (playerShips.Any() && enemyShips.Any())
             {
-                await AddEventAsync(log, new BattleEvent { Message = $"--- Round {round} ---", RoundNumber = round }, onEvent);
+                // Назначение целей перед каждым раундом
+                Dictionary<Starship, Starship> targetAssignments = null;
+                if (onAssignTargets != null)
+                    targetAssignments = await onAssignTargets(playerShips, enemyShips);
+
+                await AddEventAsync(log, new BattleEvent { Message = $"--- Раунд {round} ---", RoundNumber = round }, onEvent);
 
                 // Объединяем оба флота и сортируем по скорости (инициатива)
                 // Быстрые корабли ходят первыми
@@ -94,11 +95,35 @@ namespace Prototype
                                           (!isPlayer && enemyShips.Contains(ship));
                     if (!attackerAlive) continue;
 
-                    // Выбираем случайную цель из вражеского флота
+                    // Выбираем флот, который будем атаковать
                     var targetFleet = isPlayer ? enemyShips : playerShips;
                     if (targetFleet.Count == 0) break;  // враги уничтожены
 
-                    var target = targetFleet[_rnd.Next(targetFleet.Count)];
+                    // Игрок атакует назначенную цель, враг — случайную
+                    Starship target;
+                    if (isPlayer && targetAssignments != null
+                        && targetAssignments.TryGetValue(ship, out var assigned)
+                        && targetFleet.Contains(assigned))
+                        target = assigned;
+                    else
+                        target = targetFleet[_rnd.Next(targetFleet.Count)];
+
+                    // Истребители имеют 60% шанс уклонения
+                    if (target.ShipType == "Fighter" && _rnd.Next(100) < 60)
+                    {
+                        string atkTeam = isPlayer ? "[ИГРОК]" : "[ВРАГ]";
+                        string tgtTeam = isPlayer ? "[ВРАГ]" : "[ИГРОК]";
+                        await AddEventAsync(log, new BattleEvent
+                        {
+                            Message = $"{atkTeam} {ship.Name} ({ship.ShipType}) атакует " +
+                                      $"{tgtTeam} {target.Name} — ПРОМАХ! (Уклонение истребителя)",
+                            RoundNumber = round,
+                            Target = target,
+                            IsMiss = true
+                        }, onEvent);
+                        continue;
+                    }
+
                     int damage = ship.Weapon.Damage;
 
                     // Применяем урон: сначала снижаем щит, затем корпус
@@ -122,15 +147,15 @@ namespace Prototype
                         actualDamage = damage;
                     }
 
-                    string attackerTeam = isPlayer ? "[PLAYER]" : "[ENEMY]";
-                    string targetTeam = isPlayer ? "[ENEMY]" : "[PLAYER]";
+                    string attackerTeam = isPlayer ? "[ИГРОК]" : "[ВРАГ]";
+                    string targetTeam = isPlayer ? "[ВРАГ]" : "[ИГРОК]";
 
                     await AddEventAsync(log, new BattleEvent
                     {
-                        Message = $"{attackerTeam} {ship.Name} ({ship.ShipType}) attacks " +
-                                  $"{targetTeam} {target.Name} for {actualDamage} damage!",
+                        Message = $"{attackerTeam} {ship.Name} ({ship.ShipType}) атакует " +
+                                  $"{targetTeam} {target.Name} — {actualDamage} урона!",
                         RoundNumber = round,
-                        HitTarget = target  // Указываем, какой корабль был атакован
+                        Target = target
                     }, onEvent);
 
                     // Проверяем, уничтожена ли цель
@@ -138,7 +163,7 @@ namespace Prototype
                     {
                         await AddEventAsync(log, new BattleEvent
                         {
-                            Message = $"  >> {targetTeam} {target.Name} DESTROYED!",
+                            Message = $"  >> {targetTeam} {target.Name} УНИЧТОЖЕН!",
                             RoundNumber = round
                         }, onEvent);
                         targetFleet.Remove(target);
@@ -150,7 +175,7 @@ namespace Prototype
                     {
                         await AddEventAsync(log, new BattleEvent
                         {
-                            Message = $"  >> {target.Name} remaining: Hull {target.HullStrength}, Shield {target.ShieldLevel}",
+                            Message = $"  >> {target.Name} осталось: Корпус {target.HullStrength}, Щит {target.ShieldLevel}",
                             RoundNumber = round
                         }, onEvent);
                     }
@@ -166,18 +191,18 @@ namespace Prototype
             }
 
             // Определяем победителя
-            await AddEventAsync(log, new BattleEvent { Message = "=== BATTLE END ===", RoundNumber = 0 }, onEvent);
+            await AddEventAsync(log, new BattleEvent { Message = "=== КОНЕЦ БОЯ ===", RoundNumber = 0 }, onEvent);
             if (playerShips.Any() && !enemyShips.Any())
             {
                 await AddEventAsync(log, new BattleEvent
                 {
-                    Message = "VICTORY! Player fleet wins!",
+                    Message = "ПОБЕДА! Флот игрока выиграл!",
                     IsVictory = true,
                     RoundNumber = 0
                 }, onEvent);
                 await AddEventAsync(log, new BattleEvent
                 {
-                    Message = $"Surviving ships: {playerShips.Count}",
+                    Message = $"Выживших кораблей: {playerShips.Count}",
                     RoundNumber = 0
                 }, onEvent);
             }
@@ -185,13 +210,13 @@ namespace Prototype
             {
                 await AddEventAsync(log, new BattleEvent
                 {
-                    Message = "DEFEAT! Enemy fleet wins!",
+                    Message = "ПОРАЖЕНИЕ! Флот врага победил!",
                     IsVictory = true,
                     RoundNumber = 0
                 }, onEvent);
                 await AddEventAsync(log, new BattleEvent
                 {
-                    Message = $"Enemy survivors: {enemyShips.Count}",
+                    Message = $"Выживших врагов: {enemyShips.Count}",
                     RoundNumber = 0
                 }, onEvent);
             }
@@ -199,7 +224,7 @@ namespace Prototype
             {
                 await AddEventAsync(log, new BattleEvent
                 {
-                    Message = "DRAW! Both fleets destroyed!",
+                    Message = "НИЧЬЯ! Оба флота уничтожены!",
                     IsVictory = true,
                     RoundNumber = 0
                 }, onEvent);
@@ -229,7 +254,7 @@ namespace Prototype
                 int hull = _rnd.Next(50, 180);
                 int shield = _rnd.Next(20, 120);
                 int speed = _rnd.Next(30, 150);
-                var weaponType = (WeaponType)_rnd.Next(5);  // случайный тип оружия
+                var weaponType = (WeaponType)_rnd.Next(5); 
                 int damage = _rnd.Next(15, 75);
 
                 var weapon = new WeaponSystem(weaponType, damage);

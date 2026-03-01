@@ -1,9 +1,3 @@
-// Shipyard.cs — Клиент паттерна Прототип (Prototype Client)
-// Верфь хранит набор прототипов-образцов (Fighter, Cruiser, Bomber)
-// и создаёт новые корабли путём клонирования этих прототипов.
-// Это и есть суть паттерна: новые объекты создаются через Clone(),
-// а не через прямой вызов конструкторов.
-
 using Prototype.Models;
 
 namespace Prototype
@@ -19,7 +13,7 @@ namespace Prototype
         public Shipyard()
         {
             _prototypes["Fighter"] = new Fighter("Alpha", 60, 60, 30, 30, 180, Color.LightSkyBlue,
-                new WeaponSystem(WeaponType.LaserCannon, 25));
+                new WeaponSystem(WeaponType.LaserCannon, 35));
             _prototypes["Cruiser"] = new Cruiser("Titan", 120, 120, 100, 100, 80, Color.Gold,
                 new WeaponSystem(WeaponType.PlasmaTurret, 50));
             _prototypes["Bomber"] = new Bomber("Thunder", 150, 150, 60, 60, 50, Color.Salmon,
@@ -45,7 +39,7 @@ namespace Prototype
             proto.Weapon.Damage = damage;
         }
 
-        /// Создаёт новый корабль путём клонирования прототипа — СУТЬ ПАТТЕРНА.
+        /// Создаёт новый корабль путём клонирования прототипа — суть паттерна 
         public Starship BuildShip(string type) => _prototypes[type].Clone();
     }
 }

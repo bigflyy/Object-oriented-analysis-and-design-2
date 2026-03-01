@@ -1,9 +1,3 @@
-// FleetPanel.cs — Панель для отображения флота кораблей
-// Пользовательский элемент (Panel) для отображения списка кораблей
-// в виде вертикального ряда визуальных карточек (ShipCard).
-// Поддерживает прокрутку при большом количестве кораблей.
-// Используется для отображения как флота игрока, так и вражеского флота.
-
 using Prototype.Models;
 
 namespace Prototype.UI
@@ -39,7 +33,7 @@ namespace Prototype.UI
 
             // Метка для пустого флота
             _emptyLabel = new Label();
-            _emptyLabel.Text = "Флот пуст\nEmpty Fleet";
+            _emptyLabel.Text = "Флот пуст";
             _emptyLabel.ForeColor = Color.FromArgb(120, 120, 140);
             _emptyLabel.Font = new Font("Segoe UI", 11f, FontStyle.Italic);
             _emptyLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -106,16 +100,86 @@ namespace Prototype.UI
         /// Подсвечивает карточку указанного корабля красным (эффект получения урона).
         public async Task<bool> FlashShip(Starship ship)
         {
-            // Ищем карточку корабля среди дочерних элементов
             foreach (Control control in _cardContainer.Controls)
             {
                 if (control is ShipCard card && card.Tag == ship)
                 {
                     await card.FlashDamage();
-                    return true;  // Нашли и подсветили
+                    return true;
                 }
             }
-            return false;  // Не нашли карточку
+            return false;
+        }
+
+        /// Подсвечивает карточку указанного корабля синим (промах/уклонение).
+        public async Task<bool> FlashMissShip(Starship ship)
+        {
+            foreach (Control control in _cardContainer.Controls)
+            {
+                if (control is ShipCard card && card.Tag == ship)
+                {
+                    await card.FlashMiss();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// Включает режим выбора цели: подсвечивает все карточки зелёным,
+        /// ждёт клика игрока и возвращает выбранный корабль.
+        public Task<Starship> WaitForSelection()
+        {
+            var tcs = new TaskCompletionSource<Starship>();
+
+            foreach (Control control in _cardContainer.Controls)
+            {
+                if (control is ShipCard card)
+                {
+                    card.SetSelectable(true);
+                    card.OnSelected += OnCardSelected;
+                }
+            }
+
+            void OnCardSelected(Starship selected)
+            {
+                DisableSelection(OnCardSelected);
+                tcs.TrySetResult(selected);
+            }
+
+            return tcs.Task;
+        }
+
+        /// Выключает режим выбора и отписывает обработчик.
+        private void DisableSelection(Action<Starship> handler)
+        {
+            foreach (Control control in _cardContainer.Controls)
+            {
+                if (control is ShipCard card)
+                {
+                    card.SetSelectable(false);
+                    card.OnSelected -= handler;
+                }
+            }
+        }
+
+        /// Подсвечивает карточку атакующего корабля жёлтым.
+        public void HighlightAttacker(Starship ship)
+        {
+            foreach (Control control in _cardContainer.Controls)
+            {
+                if (control is ShipCard card && card.Tag == ship)
+                    card.SetAttacker(true);
+            }
+        }
+
+        /// Снимает подсветку атакующего.
+        public void ClearAttacker(Starship ship)
+        {
+            foreach (Control control in _cardContainer.Controls)
+            {
+                if (control is ShipCard card && card.Tag == ship)
+                    card.SetAttacker(false);
+            }
         }
     }
 }

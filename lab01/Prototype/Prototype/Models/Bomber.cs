@@ -7,10 +7,6 @@
 
 namespace Prototype.Models
 {
-    /// Бомбардировщик — конкретный прототип.
-    /// Форма: широкий прямоугольный корпус с верхним/нижним плавниками
-    /// (рисуется в ShipRenderer.DrawBomber).
-    /// По умолчанию: прочный (Hull=150), медленный (Speed=50).
     public class Bomber : Starship
     {
         public override string ShipType => "Bomber";
@@ -21,7 +17,7 @@ namespace Prototype.Models
         {
         }
 
-        /// Клонирование (паттерн Прототип) — создаёт НОВЫЙ Bomber
+        /// Клонирование (паттерн Прототип) — создаёт новый Bomber
         /// с копиями всех значений и глубокой копией WeaponSystem (новый объект, а не ссылка на тот же самый).
         /// Сохраняет максимальные значения Hull и Shield для возможности ремонта.
         public override Starship Clone()

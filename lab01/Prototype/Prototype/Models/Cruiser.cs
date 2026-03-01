@@ -7,9 +7,6 @@
 
 namespace Prototype.Models
 {
-    /// Крейсер — конкретный прототип.
-    /// Форма: удлинённый шестиугольник с секцией мостика (рисуется в ShipRenderer.DrawCruiser).
-    /// По умолчанию: сбалансированные характеристики (Hull=120, Shield=100, Speed=80).
     public class Cruiser : Starship
     {
         public override string ShipType => "Cruiser";
@@ -21,7 +18,7 @@ namespace Prototype.Models
         }
 
         /// Клонирование (паттерн Прототип) — создаёт НОВЫЙ Cruiser
-        /// с копиями всех значений и ГЛУБОКОЙ копией WeaponSystem.
+        /// с копиями всех значений и глубокой копией WeaponSystem (новый объект, а не ссылка на тот же самый).
         /// Сохраняет максимальные значения Hull и Shield для возможности ремонта.
         public override Starship Clone()
         {

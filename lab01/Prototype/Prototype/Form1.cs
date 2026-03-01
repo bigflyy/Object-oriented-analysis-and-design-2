@@ -16,7 +16,7 @@ namespace Prototype
     public partial class Form1 : Form
     {
         // Верфь — клиент паттерна Прототип. Хранит прототипы и клонирует их.
-        private readonly Shipyard _shipyard = new();
+        private readonly ShipyardManual _shipyard = new();
 
         // Текущий корабль, отображаемый в редакторе (прототип-образец из верфи).
         // null! — потому что инициализируется в LoadPrototype(), вызываемом из конструктора.
@@ -58,7 +58,7 @@ namespace Prototype
         {
             // Надписи для левой панели (leftGrid)
             lblName = new Label();
-            lblName.Text = "Name:";
+            lblName.Text = "Имя:";
             lblName.ForeColor = Color.FromArgb(200, 200, 220);
             lblName.Font = new Font("Segoe UI", 9.5f);
             lblName.Dock = DockStyle.Fill;
@@ -66,7 +66,7 @@ namespace Prototype
             leftGrid.Controls.Add(lblName, 0, 3);
 
             lblHull = new Label();
-            lblHull.Text = "Hull:";
+            lblHull.Text = "Корпус:";
             lblHull.ForeColor = Color.FromArgb(200, 200, 220);
             lblHull.Font = new Font("Segoe UI", 9.5f);
             lblHull.Dock = DockStyle.Fill;
@@ -74,7 +74,7 @@ namespace Prototype
             leftGrid.Controls.Add(lblHull, 0, 4);
 
             lblShield = new Label();
-            lblShield.Text = "Shield:";
+            lblShield.Text = "Щит:";
             lblShield.ForeColor = Color.FromArgb(200, 200, 220);
             lblShield.Font = new Font("Segoe UI", 9.5f);
             lblShield.Dock = DockStyle.Fill;
@@ -82,7 +82,7 @@ namespace Prototype
             leftGrid.Controls.Add(lblShield, 0, 5);
 
             lblSpeed = new Label();
-            lblSpeed.Text = "Speed:";
+            lblSpeed.Text = "Скорость:";
             lblSpeed.ForeColor = Color.FromArgb(200, 200, 220);
             lblSpeed.Font = new Font("Segoe UI", 9.5f);
             lblSpeed.Dock = DockStyle.Fill;
@@ -90,7 +90,7 @@ namespace Prototype
             leftGrid.Controls.Add(lblSpeed, 0, 6);
 
             lblColor = new Label();
-            lblColor.Text = "Color:";
+            lblColor.Text = "Цвет:";
             lblColor.ForeColor = Color.FromArgb(200, 200, 220);
             lblColor.Font = new Font("Segoe UI", 9.5f);
             lblColor.Dock = DockStyle.Fill;
@@ -98,7 +98,7 @@ namespace Prototype
             leftGrid.Controls.Add(lblColor, 0, 7);
 
             lblWeapon = new Label();
-            lblWeapon.Text = "Weapon:";
+            lblWeapon.Text = "Оружие:";
             lblWeapon.ForeColor = Color.FromArgb(200, 200, 220);
             lblWeapon.Font = new Font("Segoe UI", 9.5f);
             lblWeapon.Dock = DockStyle.Fill;
@@ -106,7 +106,7 @@ namespace Prototype
             leftGrid.Controls.Add(lblWeapon, 0, 9);
 
             lblDamage = new Label();
-            lblDamage.Text = "Damage:";
+            lblDamage.Text = "Урон:";
             lblDamage.ForeColor = Color.FromArgb(200, 200, 220);
             lblDamage.Font = new Font("Segoe UI", 9.5f);
             lblDamage.Dock = DockStyle.Fill;
@@ -195,9 +195,7 @@ namespace Prototype
             enemyFleetPanel.BringToFront();
         }
 
-        // =====================================================================
         // ЗАГРУЗКА ПРОТОТИПА — создаёт корабль с настройками по умолчанию
-        // =====================================================================
 
         /// Создаёт новый корабль-прототип в зависимости от выбранного RadioButton.
         /// Затем синхронизирует все элементы интерфейса с его свойствами.
@@ -285,10 +283,7 @@ namespace Prototype
             panelPreview.Invalidate();  // предпросмотр корабля
             panelInfo.Invalidate();     // панель характеристик
         }
-
-        // =====================================================================
         // КНОПКИ
-        // =====================================================================
 
         /// Кнопка «Clone to Fleet» — КЛОНИРОВАНИЕ (паттерн Прототип).
         /// Верфь клонирует текущий прототип, создавая глубокую копию.
@@ -301,60 +296,17 @@ namespace Prototype
             RefreshFleetDisplay();  // Обновляем отображение
         }
 
-        /// Кнопка «Deep Copy Demo» — демонстрация глубокого копирования.
-        ///
-        /// Алгоритм:
-        /// 1. Клонируем текущий корабль → "Original"
-        /// 2. Клонируем "Original" → "Clone"
-        /// 3. Меняем урон у оригинала на 999
-        /// 4. Проверяем: урон клона НЕ изменился → глубокая копия работает!
-        ///
-        /// Если бы Clone() был поверхностным, оригинал и клон делили бы
-        /// один объект WeaponSystem, и урон изменился бы у обоих.
-        private void BtnDeepCopyDemo_Click(object sender, EventArgs e)
-        {
-            // Шаг 1: Создаём оригинал (клонируем текущий, чтобы не менять его)
-            Starship original = _currentShip.Clone();
-            original.Name = "Original";
-            original.Weapon.Damage = 50;
-
-            // Шаг 2: Клонируем оригинал
-            Starship clone = original.Clone();
-            clone.Name = "Clone";
-
-            // Шаг 3: Запоминаем урон до изменения, затем меняем у оригинала
-            int originalDamageBefore = original.Weapon.Damage;
-            original.Weapon.Damage = 999;  // Меняем ТОЛЬКО у оригинала
-
-            // Шаг 4: Формируем сообщение с результатами
-            string message =
-                $"Deep Copy Demonstration:\n\n" +
-                $"1. Created original ship with Weapon Damage = {originalDamageBefore}\n" +
-                $"2. Cloned it (deep copy via Clone())\n" +
-                $"3. Changed original's Weapon Damage to {original.Weapon.Damage}\n\n" +
-                $"Result:\n" +
-                $"  Original weapon damage: {original.Weapon.Damage}\n" +
-                $"  Clone weapon damage:    {clone.Weapon.Damage}\n\n" +
-                // Проверяем: если урон клона != урону оригинала — глубокая копия работает
-                (clone.Weapon.Damage != original.Weapon.Damage
-                    ? "Deep copy works! The clone's WeaponSystem is independent."
-                    : "Shallow copy! The clone shares the same WeaponSystem reference.");
-
-            MessageBox.Show(message, "Prototype Pattern — Deep Copy Demo",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        /// Кнопка «Clear Fleet» — очищает список флота и вражеского флота.
+        /// Кнопка «Очистить флот» — очищает список флота и вражеского флота.
         private void BtnClearFleet_Click(object sender, EventArgs e)
         {
             _fleet.Clear();
             RefreshFleetDisplay();
 
-            // НОВОЕ: Также очищаем вражескую панель
+            // : Также очищаем вражескую панель
             enemyFleetPanel.Clear();
 
             // Очищаем лог боя
-            txtBattleLog.Text = "Click 'Battle!' to start a fleet battle.\r\n\r\nYour fleet will fight against a randomly generated enemy fleet.\r\n\r\nSpeed determines turn order.\r\nDamage reduces shields first, then hull.";
+            txtBattleLog.Text = "Нажмите «В бой!» чтобы начать сражение.\r\n\r\nВаш флот сразится со случайно сгенерированным флотом врага.\r\n\r\nСкорость определяет порядок ходов.\r\nУрон сначала снижает щит, затем корпус.";
         }
 
         /// Кнопка «Battle!» — запускает бой флота против случайных врагов.
@@ -365,7 +317,7 @@ namespace Prototype
         /// 3. Переключаемся на вкладку Fleet Command для визуализации боя
         /// 4. Отображаем вражеский флот визуально (карточки с HP/Shield)
         /// 5. Запускаем автоматический пошаговый бой (BattleEngine)
-        /// 6. НОВОЕ: Отображаем бой раунд за раундом с задержкой между раундами
+        /// 6. : Отображаем бой раунд за раундом с задержкой между раундами
         /// 7. Обновляем визуальные панели флотов после каждого раунда
         /// 8. ОБНОВЛЯЕМ флот — урон сохраняется, уничтоженные корабли удаляются
         ///
@@ -380,8 +332,8 @@ namespace Prototype
             // Проверяем, есть ли корабли во флоте
             if (_fleet.Count == 0)
             {
-                MessageBox.Show("Your fleet is empty! Clone some ships first.",
-                    "No Fleet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ваш флот пуст! Сначала клонируйте корабли.",
+                    "Нет флота", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -400,15 +352,16 @@ namespace Prototype
             playerFleetPanel.SetFleet(_fleet);
 
             // Очищаем лог и показываем начальную информацию
-            txtBattleLog.Text = "=== ENEMY FLEET DETECTED ===\r\n" +
-                                $"Enemy ships: {enemyFleet.Count}\r\n" +
-                                "Preparing for battle...\r\n\r\n";
+            txtBattleLog.Text = "=== ОБНАРУЖЕН ВРАЖЕСКИЙ ФЛОТ ===\r\n" +
+                                $"Вражеских кораблей: {enemyFleet.Count}\r\n" +
+                                "Подготовка к бою...\r\n\r\n";
 
-            // Отключаем кнопку Battle на время боя
+            // Отключаем элементы управления на время боя
             btnBattle.Enabled = false;
-
-            // Даём пользователю время посмотреть на вражеский флот (2 секунды)
-            await Task.Delay(2000);
+            btnClone.Enabled = false;
+            btnClearFleet.Enabled = false;
+            btnRepair.Enabled = false;
+            leftGrid.Enabled = false;
 
             // Переменная для отслеживания текущего раунда
             int lastRound = 0;
@@ -419,7 +372,7 @@ namespace Prototype
             var battleLog = await battleEngine.RunBattleAsync(_fleet, enemyFleet, async (evt) =>
             {
                 // Пропускаем начальные сообщения (уже показаны выше)
-                if (evt.Message.Contains("BATTLE START") || evt.Message.Contains("Fleet:"))
+                if (evt.Message.Contains("НАЧАЛО БОЯ") || evt.Message.Contains("кораблей"))
                     return;
 
                 // Добавляем сообщение в лог
@@ -427,7 +380,7 @@ namespace Prototype
                 txtBattleLog.SelectionStart = txtBattleLog.Text.Length;
                 txtBattleLog.ScrollToCaret();
 
-                // ОПТИМИЗАЦИЯ: Пересоздаём карточки только если количество кораблей изменилось (корабль уничтожен)
+                // Пересоздаём карточки только если количество кораблей изменилось (корабль уничтожен)
                 // Иначе просто обновляем существующие карточки
                 bool shipsDestroyed = _fleet.Count != lastPlayerCount || enemyFleet.Count != lastEnemyCount;
 
@@ -449,20 +402,22 @@ namespace Prototype
                 // Обновляем форму для перерисовки
                 Application.DoEvents();
 
-                // НОВОЕ: Если это атака, подсвечиваем атакованный корабль красным
-                // (делаем это ПОСЛЕ обновления, чтобы карточки были готовы)
-                if (evt.HitTarget != null)
+                // Подсветка цели: красная = попадание, синяя = промах
+                if (evt.Target != null)
                 {
-                    // Определяем, какая панель содержит цель (игрок или враг)
-                    if (_fleet.Contains(evt.HitTarget))
+                    if (evt.IsMiss)
                     {
-                        // Атакован корабль игрока - НЕ ждём завершения flash (пусть идёт параллельно)
-                        _ = playerFleetPanel.FlashShip(evt.HitTarget);
+                        if (_fleet.Contains(evt.Target))
+                            _ = playerFleetPanel.FlashMissShip(evt.Target);
+                        else if (enemyFleet.Contains(evt.Target))
+                            _ = enemyFleetPanel.FlashMissShip(evt.Target);
                     }
-                    else if (enemyFleet.Contains(evt.HitTarget))
+                    else
                     {
-                        // Атакован вражеский корабль
-                        _ = enemyFleetPanel.FlashShip(evt.HitTarget);
+                        if (_fleet.Contains(evt.Target))
+                            _ = playerFleetPanel.FlashShip(evt.Target);
+                        else if (enemyFleet.Contains(evt.Target))
+                            _ = enemyFleetPanel.FlashShip(evt.Target);
                     }
                 }
 
@@ -480,17 +435,41 @@ namespace Prototype
                     // Небольшая задержка между атаками (800 мс для видимости подсветки)
                     await Task.Delay(800);
                 }
+            },
+            // Назначение целей перед каждым раундом
+            async (playerShips, enemyShips) =>
+            {
+                txtBattleLog.AppendText("=== НАЗНАЧЕНИЕ ЦЕЛЕЙ ===\r\n");
+                txtBattleLog.SelectionStart = txtBattleLog.Text.Length;
+                txtBattleLog.ScrollToCaret();
+
+                var assignments = new Dictionary<Starship, Starship>();
+                foreach (var ship in playerShips)
+                {
+                    txtBattleLog.AppendText($">> {ship.Name} ({ship.ShipType}) — выберите цель!\r\n");
+                    txtBattleLog.SelectionStart = txtBattleLog.Text.Length;
+                    txtBattleLog.ScrollToCaret();
+
+                    playerFleetPanel.HighlightAttacker(ship);
+                    var selected = await enemyFleetPanel.WaitForSelection();
+                    playerFleetPanel.ClearAttacker(ship);
+
+                    assignments[ship] = selected;
+                    txtBattleLog.AppendText($"   {ship.Name} -> {selected.Name}\r\n");
+                }
+                txtBattleLog.AppendText("\r\n");
+                return assignments;
             });
 
             // Добавляем статистику потерь
             int shipsLost = initialFleetSize - _fleet.Count;
             if (shipsLost > 0)
             {
-                txtBattleLog.AppendText($"\r\nYour fleet lost {shipsLost} ship(s) in battle.\r\n");
+                txtBattleLog.AppendText($"\r\nВаш флот потерял {shipsLost} кораб.(ей) в бою.\r\n");
             }
             if (_fleet.Count > 0)
             {
-                txtBattleLog.AppendText($"Surviving ships may be damaged.\r\n");
+                txtBattleLog.AppendText($"Выжившие корабли могут быть повреждены.\r\n");
             }
 
             // Финальное обновление флотов
@@ -501,8 +480,12 @@ namespace Prototype
             txtBattleLog.SelectionStart = txtBattleLog.Text.Length;
             txtBattleLog.ScrollToCaret();
 
-            // Включаем кнопку обратно
+            // Включаем элементы управления обратно
             btnBattle.Enabled = true;
+            btnClone.Enabled = true;
+            btnClearFleet.Enabled = true;
+            btnRepair.Enabled = true;
+            leftGrid.Enabled = true;
         }
 
         /// Кнопка «Repair Fleet» — ремонтирует все корабли во флоте.
@@ -512,8 +495,8 @@ namespace Prototype
         {
             if (_fleet.Count == 0)
             {
-                MessageBox.Show("Your fleet is empty! Nothing to repair.",
-                    "No Fleet", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Флот пуст! Нечего ремонтировать.",
+                    "Нет флота", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -532,28 +515,19 @@ namespace Prototype
             // Показываем результат
             if (repairedCount > 0)
             {
-                MessageBox.Show($"Repaired {repairedCount} damaged ship(s).\nAll ships restored to full health!",
-                    "Repair Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Отремонтировано {repairedCount} повреждённых кораблей.\nВсе корабли восстановлены!",
+                    "Ремонт завершён", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("All ships are already at full health!",
-                    "Repair Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Все корабли уже полностью исправны!",
+                    "Ремонт завершён", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        /// Обновляет отображение флота в ListBox и визуальной панели флота.
-        /// Показывает актуальные значения Hull и Shield после боя.
+        /// Обновляет отображение флота в визуальной панели.
         private void RefreshFleetDisplay()
         {
-            // Обновляем старый ListBox (для обратной совместимости)
-            lstFleet.Items.Clear();
-            foreach (var ship in _fleet)
-            {
-                lstFleet.Items.Add(ship.GetInfo());
-            }
-
-            // НОВОЕ: Обновляем визуальную панель флота с карточками кораблей
             playerFleetPanel.SetFleet(_fleet);
         }
 
@@ -621,37 +595,37 @@ namespace Prototype
             int barMaxW = Math.Max(50, panelInfo.ClientSize.Width - 30); // ширина баров (адаптивная)
 
             // --- Заголовок: тип корабля ---
-            g.DrawString($"Type: {_currentShip.ShipType}", headerFont, brush, x, y);
+            g.DrawString($"Тип: {_currentShip.ShipType}", headerFont, brush, x, y);
             y += headerH + gap;
 
             // --- Имя корабля (зелёным цветом) ---
-            g.DrawString($"Name: {_currentShip.Name}", font, valueBrush, x, y);
+            g.DrawString($"Имя: {_currentShip.Name}", font, valueBrush, x, y);
             y += lineH + gap + 4;
 
             // --- Корпус + зелёный прогресс-бар ---
-            g.DrawString($"Hull: {_currentShip.HullStrength}", font, brush, x, y);
+            g.DrawString($"Корпус: {_currentShip.HullStrength}", font, brush, x, y);
             y += lineH + 2;
             DrawBar(g, barX, y, barMaxW, barH, _currentShip.HullStrength, 200, Color.Green);
             y += barH + gap + 2;
 
             // --- Щит + голубой прогресс-бар ---
-            g.DrawString($"Shield: {_currentShip.ShieldLevel}", font, brush, x, y);
+            g.DrawString($"Щит: {_currentShip.ShieldLevel}", font, brush, x, y);
             y += lineH + 2;
             DrawBar(g, barX, y, barMaxW, barH, _currentShip.ShieldLevel, 150, Color.DodgerBlue);
             y += barH + gap + 2;
 
             // --- Скорость + жёлтый прогресс-бар ---
-            g.DrawString($"Speed: {_currentShip.Speed}", font, brush, x, y);
+            g.DrawString($"Скорость: {_currentShip.Speed}", font, brush, x, y);
             y += lineH + 2;
             DrawBar(g, barX, y, barMaxW, barH, _currentShip.Speed, 200, Color.Yellow);
             y += barH + gap + 6;
 
             // --- Тип оружия (серым, приглушённым цветом) ---
-            g.DrawString($"Weapon: {_currentShip.Weapon.Name}", font, dimBrush, x, y);
+            g.DrawString($"Оружие: {_currentShip.Weapon.Name}", font, dimBrush, x, y);
             y += lineH + gap;
 
             // --- Урон + оранжево-красный прогресс-бар ---
-            g.DrawString($"Damage: {_currentShip.Weapon.Damage}", font, brush, x, y);
+            g.DrawString($"Урон: {_currentShip.Weapon.Damage}", font, brush, x, y);
             y += lineH + 2;
             DrawBar(g, barX, y, barMaxW, barH, _currentShip.Weapon.Damage, 100, Color.OrangeRed);
         }

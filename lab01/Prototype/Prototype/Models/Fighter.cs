@@ -7,9 +7,6 @@
 
 namespace Prototype.Models
 {
-    /// Истребитель — конкретный прототип.
-    /// Форма: треугольник/стрела с крыльями (рисуется в ShipRenderer.DrawFighter).
-    /// По умолчанию: быстрый (Speed=180), лёгкий корпус (Hull=60).
     public class Fighter : Starship
     {
         public override string ShipType => "Fighter";
@@ -20,9 +17,9 @@ namespace Prototype.Models
         {
         }
 
-        /// Клонирование (паттерн Прототип) — создаёт НОВЫЙ Fighter
+        /// Клонирование (паттерн Прототип) — создаёт новый Fighter
         /// с копиями всех значений. Weapon.Clone() обеспечивает
-        /// ГЛУБОКОЕ копирование ссылочного типа WeaponSystem.
+        /// глубокое копирование WeaponSystem (новый объект, а не ссылка на тот же самый).
         ///
         /// Сохраняет максимальные значения Hull и Shield для возможности ремонта.
         public override Starship Clone()

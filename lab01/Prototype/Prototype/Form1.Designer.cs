@@ -58,7 +58,6 @@ namespace Prototype
             lblWeaponHeader = new Label();
             cmbWeapon = new ComboBox();
             btnClone = new Button();
-            btnDeepCopyDemo = new Button();
             tabFleetCommand = new TabPage();
             panelFleetLayout = new TableLayoutPanel();
             playerFleetContainer = new Panel();
@@ -72,7 +71,6 @@ namespace Prototype
             lblBattleLog = new Label();
             enemyFleetContainer = new Panel();
             lblEnemyFleet = new Label();
-            lstFleet = new ListBox();
             tabControl.SuspendLayout();
             tabShipyard.SuspendLayout();
             panelShipyardRight.SuspendLayout();
@@ -111,7 +109,7 @@ namespace Prototype
             tabShipyard.Name = "tabShipyard";
             tabShipyard.Size = new Size(1192, 679);
             tabShipyard.TabIndex = 0;
-            tabShipyard.Text = "Shipyard";
+            tabShipyard.Text = "Верфь";
             // 
             // panelShipyardRight
             // 
@@ -159,7 +157,7 @@ namespace Prototype
             lblPreview.Name = "lblPreview";
             lblPreview.Size = new Size(366, 32);
             lblPreview.TabIndex = 0;
-            lblPreview.Text = "Ship Preview:";
+            lblPreview.Text = "Предпросмотр:";
             // 
             // infoContainer
             // 
@@ -180,7 +178,7 @@ namespace Prototype
             lblInfo.Name = "lblInfo";
             lblInfo.Size = new Size(454, 32);
             lblInfo.TabIndex = 0;
-            lblInfo.Text = "Current Ship Info:";
+            lblInfo.Text = "Характеристики:";
             // 
             // panelLeft
             // 
@@ -208,13 +206,12 @@ namespace Prototype
             leftGrid.Controls.Add(lblWeaponHeader, 0, 8);
             leftGrid.Controls.Add(cmbWeapon, 1, 9);
             leftGrid.Controls.Add(btnClone, 0, 11);
-            leftGrid.Controls.Add(btnDeepCopyDemo, 0, 12);
             leftGrid.Dock = DockStyle.Fill;
             leftGrid.Location = new Point(10, 10);
             leftGrid.Name = "leftGrid";
             leftGrid.RowCount = 15;
             leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 75F));
             leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
             leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
             leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
@@ -241,7 +238,7 @@ namespace Prototype
             lblSelectPrototype.Name = "lblSelectPrototype";
             lblSelectPrototype.Size = new Size(284, 40);
             lblSelectPrototype.TabIndex = 0;
-            lblSelectPrototype.Text = "Select Prototype:";
+            lblSelectPrototype.Text = "Выбор прототипа:";
             lblSelectPrototype.TextAlign = ContentAlignment.BottomLeft;
             // 
             // radioPanel
@@ -255,9 +252,8 @@ namespace Prototype
             radioPanel.Location = new Point(0, 40);
             radioPanel.Margin = new Padding(0);
             radioPanel.Name = "radioPanel";
-            radioPanel.Size = new Size(290, 42);
+            radioPanel.Size = new Size(290, 75);
             radioPanel.TabIndex = 1;
-            radioPanel.WrapContents = false;
             // 
             // rbFighter
             // 
@@ -267,10 +263,10 @@ namespace Prototype
             rbFighter.ForeColor = Color.LightSkyBlue;
             rbFighter.Location = new Point(3, 3);
             rbFighter.Name = "rbFighter";
-            rbFighter.Size = new Size(92, 29);
+            rbFighter.Size = new Size(139, 29);
             rbFighter.TabIndex = 0;
             rbFighter.TabStop = true;
-            rbFighter.Text = "Fighter";
+            rbFighter.Text = "Истребитель";
             rbFighter.CheckedChanged += OnPrototypeChanged;
             // 
             // rbCruiser
@@ -278,11 +274,11 @@ namespace Prototype
             rbCruiser.AutoSize = true;
             rbCruiser.Font = new Font("Segoe UI", 9F);
             rbCruiser.ForeColor = Color.Gold;
-            rbCruiser.Location = new Point(101, 3);
+            rbCruiser.Location = new Point(148, 3);
             rbCruiser.Name = "rbCruiser";
-            rbCruiser.Size = new Size(91, 29);
+            rbCruiser.Size = new Size(105, 29);
             rbCruiser.TabIndex = 1;
-            rbCruiser.Text = "Cruiser";
+            rbCruiser.Text = "Крейсер";
             rbCruiser.CheckedChanged += OnPrototypeChanged;
             // 
             // rbBomber
@@ -290,11 +286,11 @@ namespace Prototype
             rbBomber.AutoSize = true;
             rbBomber.Font = new Font("Segoe UI", 9F);
             rbBomber.ForeColor = Color.Salmon;
-            rbBomber.Location = new Point(198, 3);
+            rbBomber.Location = new Point(3, 38);
             rbBomber.Name = "rbBomber";
-            rbBomber.Size = new Size(100, 29);
+            rbBomber.Size = new Size(187, 29);
             rbBomber.TabIndex = 2;
-            rbBomber.Text = "Bomber";
+            rbBomber.Text = "Бомбардировщик";
             rbBomber.CheckedChanged += OnPrototypeChanged;
             // 
             // lblProperties
@@ -303,11 +299,11 @@ namespace Prototype
             lblProperties.Dock = DockStyle.Fill;
             lblProperties.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblProperties.ForeColor = Color.FromArgb(140, 140, 170);
-            lblProperties.Location = new Point(3, 82);
+            lblProperties.Location = new Point(3, 115);
             lblProperties.Name = "lblProperties";
             lblProperties.Size = new Size(284, 36);
             lblProperties.TabIndex = 2;
-            lblProperties.Text = "── Properties ──";
+            lblProperties.Text = "── Свойства ──";
             lblProperties.TextAlign = ContentAlignment.BottomLeft;
             // 
             // txtName
@@ -317,7 +313,7 @@ namespace Prototype
             txtName.Dock = DockStyle.Fill;
             txtName.Font = new Font("Segoe UI", 9.5F);
             txtName.ForeColor = Color.White;
-            txtName.Location = new Point(91, 121);
+            txtName.Location = new Point(91, 154);
             txtName.MaxLength = 20;
             txtName.Name = "txtName";
             txtName.Size = new Size(196, 33);
@@ -333,7 +329,7 @@ namespace Prototype
             cmbColor.Font = new Font("Segoe UI", 9.5F);
             cmbColor.ForeColor = Color.White;
             cmbColor.Items.AddRange(new object[] { "LightSkyBlue", "Red", "Green", "Gold", "Orange", "Magenta", "Cyan", "Lime", "Salmon", "White" });
-            cmbColor.Location = new Point(91, 289);
+            cmbColor.Location = new Point(91, 322);
             cmbColor.Name = "cmbColor";
             cmbColor.Size = new Size(196, 33);
             cmbColor.TabIndex = 4;
@@ -345,11 +341,11 @@ namespace Prototype
             lblWeaponHeader.Dock = DockStyle.Fill;
             lblWeaponHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblWeaponHeader.ForeColor = Color.FromArgb(140, 140, 170);
-            lblWeaponHeader.Location = new Point(3, 328);
+            lblWeaponHeader.Location = new Point(3, 361);
             lblWeaponHeader.Name = "lblWeaponHeader";
             lblWeaponHeader.Size = new Size(284, 38);
             lblWeaponHeader.TabIndex = 5;
-            lblWeaponHeader.Text = "── Weapon System ──";
+            lblWeaponHeader.Text = "── Вооружение ──";
             lblWeaponHeader.TextAlign = ContentAlignment.BottomLeft;
             // 
             // cmbWeapon
@@ -361,7 +357,7 @@ namespace Prototype
             cmbWeapon.Font = new Font("Segoe UI", 9.5F);
             cmbWeapon.ForeColor = Color.White;
             cmbWeapon.Items.AddRange(new object[] { "Laser Cannon", "Plasma Turret", "Missile Rack", "Torpedo Bay", "Ion Beam" });
-            cmbWeapon.Location = new Point(91, 369);
+            cmbWeapon.Location = new Point(91, 402);
             cmbWeapon.Name = "cmbWeapon";
             cmbWeapon.Size = new Size(196, 33);
             cmbWeapon.TabIndex = 6;
@@ -376,30 +372,13 @@ namespace Prototype
             btnClone.FlatStyle = FlatStyle.Flat;
             btnClone.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             btnClone.ForeColor = Color.White;
-            btnClone.Location = new Point(3, 453);
+            btnClone.Location = new Point(3, 486);
             btnClone.Name = "btnClone";
             btnClone.Size = new Size(284, 44);
             btnClone.TabIndex = 7;
-            btnClone.Text = "Clone to Fleet";
+            btnClone.Text = "Клонировать во флот";
             btnClone.UseVisualStyleBackColor = false;
             btnClone.Click += BtnClone_Click;
-            // 
-            // btnDeepCopyDemo
-            // 
-            btnDeepCopyDemo.BackColor = Color.FromArgb(90, 55, 130);
-            leftGrid.SetColumnSpan(btnDeepCopyDemo, 2);
-            btnDeepCopyDemo.Dock = DockStyle.Fill;
-            btnDeepCopyDemo.FlatAppearance.BorderColor = Color.FromArgb(120, 80, 170);
-            btnDeepCopyDemo.FlatStyle = FlatStyle.Flat;
-            btnDeepCopyDemo.Font = new Font("Segoe UI", 9.5F);
-            btnDeepCopyDemo.ForeColor = Color.White;
-            btnDeepCopyDemo.Location = new Point(3, 503);
-            btnDeepCopyDemo.Name = "btnDeepCopyDemo";
-            btnDeepCopyDemo.Size = new Size(284, 38);
-            btnDeepCopyDemo.TabIndex = 8;
-            btnDeepCopyDemo.Text = "Deep Copy Demo";
-            btnDeepCopyDemo.UseVisualStyleBackColor = false;
-            btnDeepCopyDemo.Click += BtnDeepCopyDemo_Click;
             // 
             // tabFleetCommand
             // 
@@ -410,7 +389,7 @@ namespace Prototype
             tabFleetCommand.Padding = new Padding(10);
             tabFleetCommand.Size = new Size(1192, 679);
             tabFleetCommand.TabIndex = 1;
-            tabFleetCommand.Text = "Fleet Command";
+            tabFleetCommand.Text = "Командование флотом";
             // 
             // panelFleetLayout
             // 
@@ -449,7 +428,7 @@ namespace Prototype
             lblPlayerFleet.Name = "lblPlayerFleet";
             lblPlayerFleet.Size = new Size(375, 38);
             lblPlayerFleet.TabIndex = 0;
-            lblPlayerFleet.Text = "Player Fleet:";
+            lblPlayerFleet.Text = "Флот игрока:";
             lblPlayerFleet.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // battleZoneContainer
@@ -478,7 +457,7 @@ namespace Prototype
             txtBattleLog.ScrollBars = ScrollBars.Vertical;
             txtBattleLog.Size = new Size(382, 475);
             txtBattleLog.TabIndex = 0;
-            txtBattleLog.Text = "Click 'Battle!' to start a fleet battle.\r\n\r\nYour fleet will fight against a randomly generated enemy fleet.\r\n\r\nSpeed determines turn order.\r\nDamage reduces shields first, then hull.";
+            txtBattleLog.Text = "Нажмите «В бой!» чтобы начать сражение.\r\n\r\nВаш флот сразится со случайно сгенерированным флотом врага.\r\n\r\nСкорость определяет порядок ходов.\r\nУрон сначала снижает щит, затем корпус.";
             // 
             // panelBattleButtons
             // 
@@ -505,7 +484,7 @@ namespace Prototype
             btnClearFleet.Name = "btnClearFleet";
             btnClearFleet.Size = new Size(362, 32);
             btnClearFleet.TabIndex = 0;
-            btnClearFleet.Text = "Clear Fleet";
+            btnClearFleet.Text = "Очистить флот";
             btnClearFleet.UseVisualStyleBackColor = false;
             btnClearFleet.Click += BtnClearFleet_Click;
             // 
@@ -521,7 +500,7 @@ namespace Prototype
             btnRepair.Name = "btnRepair";
             btnRepair.Size = new Size(362, 32);
             btnRepair.TabIndex = 1;
-            btnRepair.Text = "🔧 Repair Fleet";
+            btnRepair.Text = "🔧 Ремонт флота";
             btnRepair.UseVisualStyleBackColor = false;
             btnRepair.Click += BtnRepair_Click;
             // 
@@ -537,7 +516,7 @@ namespace Prototype
             btnBattle.Name = "btnBattle";
             btnBattle.Size = new Size(362, 40);
             btnBattle.TabIndex = 2;
-            btnBattle.Text = "⚔ Battle!";
+            btnBattle.Text = "⚔ В бой!";
             btnBattle.UseVisualStyleBackColor = false;
             btnBattle.Click += BtnBattle_Click;
             // 
@@ -550,7 +529,7 @@ namespace Prototype
             lblBattleLog.Name = "lblBattleLog";
             lblBattleLog.Size = new Size(382, 38);
             lblBattleLog.TabIndex = 2;
-            lblBattleLog.Text = "Battle Log:";
+            lblBattleLog.Text = "Журнал боя:";
             lblBattleLog.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // enemyFleetContainer
@@ -572,16 +551,8 @@ namespace Prototype
             lblEnemyFleet.Name = "lblEnemyFleet";
             lblEnemyFleet.Size = new Size(377, 38);
             lblEnemyFleet.TabIndex = 0;
-            lblEnemyFleet.Text = "Enemy Fleet:";
+            lblEnemyFleet.Text = "Флот врага:";
             lblEnemyFleet.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lstFleet
-            // 
-            lstFleet.Location = new Point(0, 0);
-            lstFleet.Name = "lstFleet";
-            lstFleet.Size = new Size(120, 96);
-            lstFleet.TabIndex = 0;
-            lstFleet.Visible = false;
             // 
             // Form1
             // 
@@ -593,7 +564,7 @@ namespace Prototype
             DoubleBuffered = true;
             MinimumSize = new Size(1000, 650);
             Name = "Form1";
-            Text = "Starship Fleet Builder — Prototype Pattern";
+            Text = "Строитель Флота — Паттерн Прототип";
             tabControl.ResumeLayout(false);
             tabShipyard.ResumeLayout(false);
             panelShipyardRight.ResumeLayout(false);
@@ -614,33 +585,6 @@ namespace Prototype
             panelBattleButtons.ResumeLayout(false);
             enemyFleetContainer.ResumeLayout(false);
             ResumeLayout(false);
-        }
-
-        /// Вспомогательный метод — создаёт надпись (Label) с тёмной темой.
-        private Label CreateLabel(string text)
-        {
-            Label lbl = new Label();
-            lbl.Text = text;
-            lbl.ForeColor = Color.FromArgb(200, 200, 220);
-            lbl.Font = new Font("Segoe UI", 9.5f);
-            lbl.Dock = DockStyle.Fill;
-            lbl.TextAlign = ContentAlignment.MiddleLeft;
-            return lbl;
-        }
-
-        /// Вспомогательный метод — создаёт числовой элемент (NumericUpDown) с тёмной темой.
-        private NumericUpDown CreateNumeric(int min, int max, int value)
-        {
-            NumericUpDown nud = new NumericUpDown();
-            nud.Dock = DockStyle.Fill;
-            nud.Minimum = min;
-            nud.Maximum = max;
-            nud.Value = value;
-            nud.BackColor = Color.FromArgb(50, 50, 75);
-            nud.ForeColor = Color.White;
-            nud.Font = new Font("Segoe UI", 9.5f);
-            nud.BorderStyle = BorderStyle.FixedSingle;
-            return nud;
         }
 
         #endregion
@@ -679,7 +623,6 @@ namespace Prototype
         private Label lblDamage;                    // надпись «Damage:»
         private NumericUpDown nudDamage;            // числовое поле урона
         private Button btnClone;                    // кнопка «Clone to Fleet»
-        private Button btnDeepCopyDemo;             // кнопка «Deep Copy Demo»
 
         // --- Tab 1: Shipyard (правая область) ---
         private Panel panelShipyardRight;           // правая область таба Shipyard
@@ -703,7 +646,7 @@ namespace Prototype
         private FleetPanel enemyFleetPanel;         // панель с вражескими карточками
 
         // --- Обратная совместимость ---
-        private ListBox lstFleet;                   // скрытый ListBox (для старого кода)
+
         private Panel previewContainer;
         private Panel infoContainer;
         private Panel playerFleetContainer;
