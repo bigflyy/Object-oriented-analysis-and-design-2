@@ -645,8 +645,6 @@ namespace Prototype
         private Label lblEnemyFleet;                // заголовок «Enemy Fleet:»
         private FleetPanel enemyFleetPanel;         // панель с вражескими карточками
 
-        // --- Обратная совместимость ---
-
         private Panel previewContainer;
         private Panel infoContainer;
         private Panel playerFleetContainer;

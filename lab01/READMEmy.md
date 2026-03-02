@@ -66,6 +66,7 @@ Starship ship = shipyard.BuildShip("Fighter");          // Clone() внутри
 ## 3. Диаграмма классов
 
 Диаграмма классов представлена в файле `umlships.drawio`.
+![alt text](image.png)
 
 ## 4. Вывод
 
