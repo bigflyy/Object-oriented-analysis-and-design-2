@@ -16,7 +16,7 @@ namespace Prototype
     public partial class Form1 : Form
     {
         // Верфь — клиент паттерна Прототип. Хранит прототипы и клонирует их.
-        private readonly ShipyardManual _shipyard = new();
+        private readonly Shipyard _shipyard = new();
 
         // Текущий корабль, отображаемый в редакторе (прототип-образец из верфи).
         // null! — потому что инициализируется в LoadPrototype(), вызываемом из конструктора.
