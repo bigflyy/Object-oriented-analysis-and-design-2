@@ -61,10 +61,11 @@ namespace Prototype.UI
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             // Вычисляем центр и размеры области рисования
-            int cx = bounds.X + bounds.Width / 2;   // центр по Xя
-            int cy = bounds.Y + bounds.Height / 2;  // центр по Y
-            int w = bounds.Width - 20;               // ширина с отступами
-            int h = bounds.Height - 20;              // высота с отступами
+            // Сдвигаем центр влево, чтобы оружие (ионный луч и т.д.) не выходило за правый край
+            int cx = bounds.X + bounds.Width / 2 - bounds.Width / 8;
+            int cy = bounds.Y + bounds.Height / 2;
+            int w = bounds.Width - 20 - bounds.Width / 4;  // уменьшаем ширину корпуса, оставляя место для оружия
+            int h = bounds.Height - 20;
 
             // Создаём кисть и перо в цвете корабля
             using var brush = new SolidBrush(ship.ShipColor);  // заливка
@@ -200,14 +201,12 @@ namespace Prototype.UI
         private static void DrawLaserCannon(Graphics g, ShipMounts m)
         {
             using var laserPen = new Pen(Color.FromArgb(200, Color.Red), 2);
-            int nx = m.NoseX;  // Начало лучей - нос корабля
+            int nx = m.NoseX;
             int ny = m.NoseY;
 
-            // Два параллельных луча: верхний (ny - 4) и нижний (ny + 4)
             g.DrawLine(laserPen, nx - 2, ny - 4, nx + 20, ny - 4);
             g.DrawLine(laserPen, nx - 2, ny + 4, nx + 20, ny + 4);
 
-            // Светящиеся точки на концах лучей (полупрозрачные эллипсы)
             using var glowBrush = new SolidBrush(Color.FromArgb(120, Color.OrangeRed));
             g.FillEllipse(glowBrush, nx + 17, ny - 7, 8, 6);
             g.FillEllipse(glowBrush, nx + 17, ny + 1, 8, 6);
@@ -296,15 +295,15 @@ namespace Prototype.UI
         /// Визуал: двухслойный конус (яркий + бледный) + кольцо эмиттера + центральный луч.
         private static void DrawIonBeam(Graphics g, ShipMounts m)
         {
-            int nx = m.NoseX;  // Начало луча - нос корабля
+            int nx = m.NoseX;
             int ny = m.NoseY;
 
             // Внутренний конус (более яркий, узкий)
             using var beamBrush1 = new SolidBrush(Color.FromArgb(50, Color.Cyan));
             Point[] cone = {
-                new(nx, ny),                // вершина конуса (нос корабля)
-                new(nx + 35, ny - 15),      // верхний край расширения
-                new(nx + 35, ny + 15),      // нижний край расширения
+                new(nx, ny),
+                new(nx + 35, ny - 15),
+                new(nx + 35, ny + 15),
             };
             g.FillPolygon(beamBrush1, cone);
 
@@ -317,11 +316,11 @@ namespace Prototype.UI
             };
             g.FillPolygon(beamBrush2, outerCone);
 
-            // Кольцо эмиттера - маленький овал на носу
+            // Кольцо эмиттера
             using var emitterPen = new Pen(Color.FromArgb(220, Color.Cyan), 2);
             g.DrawEllipse(emitterPen, nx - 5, ny - 6, 10, 12);
 
-            // Центральный луч - тонкая белая линия по оси конуса
+            // Центральный луч
             using var corePen = new Pen(Color.FromArgb(180, Color.White), 1);
             g.DrawLine(corePen, nx + 3, ny, nx + 30, ny);
         }
