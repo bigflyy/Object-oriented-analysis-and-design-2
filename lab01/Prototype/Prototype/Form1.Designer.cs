@@ -95,9 +95,10 @@ namespace Prototype
             tabControl.Dock = DockStyle.Fill;
             tabControl.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             tabControl.Location = new Point(0, 0);
+            tabControl.Margin = new Padding(2);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(1200, 720);
+            tabControl.Size = new Size(840, 432);
             tabControl.TabIndex = 0;
             // 
             // tabShipyard
@@ -105,9 +106,10 @@ namespace Prototype
             tabShipyard.BackColor = Color.FromArgb(20, 20, 35);
             tabShipyard.Controls.Add(panelShipyardRight);
             tabShipyard.Controls.Add(panelLeft);
-            tabShipyard.Location = new Point(4, 37);
+            tabShipyard.Location = new Point(4, 26);
+            tabShipyard.Margin = new Padding(2);
             tabShipyard.Name = "tabShipyard";
-            tabShipyard.Size = new Size(1192, 679);
+            tabShipyard.Size = new Size(832, 402);
             tabShipyard.TabIndex = 0;
             tabShipyard.Text = "Верфь";
             // 
@@ -116,10 +118,11 @@ namespace Prototype
             panelShipyardRight.BackColor = Color.FromArgb(20, 20, 35);
             panelShipyardRight.Controls.Add(panelTopRow);
             panelShipyardRight.Dock = DockStyle.Fill;
-            panelShipyardRight.Location = new Point(310, 0);
+            panelShipyardRight.Location = new Point(217, 0);
+            panelShipyardRight.Margin = new Padding(2);
             panelShipyardRight.Name = "panelShipyardRight";
-            panelShipyardRight.Padding = new Padding(10);
-            panelShipyardRight.Size = new Size(882, 679);
+            panelShipyardRight.Padding = new Padding(7, 6, 7, 6);
+            panelShipyardRight.Size = new Size(615, 402);
             panelShipyardRight.TabIndex = 0;
             // 
             // panelTopRow
@@ -131,21 +134,23 @@ namespace Prototype
             panelTopRow.Controls.Add(previewContainer, 0, 0);
             panelTopRow.Controls.Add(infoContainer, 1, 0);
             panelTopRow.Dock = DockStyle.Fill;
-            panelTopRow.Location = new Point(10, 10);
+            panelTopRow.Location = new Point(7, 6);
+            panelTopRow.Margin = new Padding(2);
             panelTopRow.Name = "panelTopRow";
             panelTopRow.RowCount = 1;
-            panelTopRow.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            panelTopRow.Size = new Size(862, 659);
+            panelTopRow.RowStyles.Add(new RowStyle(SizeType.Absolute, 395F));
+            panelTopRow.Size = new Size(601, 390);
             panelTopRow.TabIndex = 0;
             // 
             // previewContainer
             // 
             previewContainer.Controls.Add(lblPreview);
             previewContainer.Dock = DockStyle.Fill;
-            previewContainer.Location = new Point(3, 3);
+            previewContainer.Location = new Point(2, 2);
+            previewContainer.Margin = new Padding(2);
             previewContainer.Name = "previewContainer";
-            previewContainer.Padding = new Padding(5, 5, 10, 5);
-            previewContainer.Size = new Size(381, 653);
+            previewContainer.Padding = new Padding(4, 3, 7, 3);
+            previewContainer.Size = new Size(266, 391);
             previewContainer.TabIndex = 0;
             // 
             // lblPreview
@@ -153,9 +158,10 @@ namespace Prototype
             lblPreview.Dock = DockStyle.Top;
             lblPreview.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblPreview.ForeColor = Color.White;
-            lblPreview.Location = new Point(5, 5);
+            lblPreview.Location = new Point(4, 3);
+            lblPreview.Margin = new Padding(2, 0, 2, 0);
             lblPreview.Name = "lblPreview";
-            lblPreview.Size = new Size(366, 32);
+            lblPreview.Size = new Size(255, 19);
             lblPreview.TabIndex = 0;
             lblPreview.Text = "Предпросмотр:";
             // 
@@ -163,10 +169,11 @@ namespace Prototype
             // 
             infoContainer.Controls.Add(lblInfo);
             infoContainer.Dock = DockStyle.Fill;
-            infoContainer.Location = new Point(390, 3);
+            infoContainer.Location = new Point(272, 2);
+            infoContainer.Margin = new Padding(2);
             infoContainer.Name = "infoContainer";
-            infoContainer.Padding = new Padding(10, 5, 5, 5);
-            infoContainer.Size = new Size(469, 653);
+            infoContainer.Padding = new Padding(7, 3, 4, 3);
+            infoContainer.Size = new Size(327, 391);
             infoContainer.TabIndex = 1;
             // 
             // lblInfo
@@ -174,9 +181,10 @@ namespace Prototype
             lblInfo.Dock = DockStyle.Top;
             lblInfo.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblInfo.ForeColor = Color.White;
-            lblInfo.Location = new Point(10, 5);
+            lblInfo.Location = new Point(7, 3);
+            lblInfo.Margin = new Padding(2, 0, 2, 0);
             lblInfo.Name = "lblInfo";
-            lblInfo.Size = new Size(454, 32);
+            lblInfo.Size = new Size(316, 19);
             lblInfo.TabIndex = 0;
             lblInfo.Text = "Характеристики:";
             // 
@@ -186,9 +194,10 @@ namespace Prototype
             panelLeft.Controls.Add(leftGrid);
             panelLeft.Dock = DockStyle.Left;
             panelLeft.Location = new Point(0, 0);
+            panelLeft.Margin = new Padding(2);
             panelLeft.Name = "panelLeft";
-            panelLeft.Padding = new Padding(10);
-            panelLeft.Size = new Size(310, 679);
+            panelLeft.Padding = new Padding(7, 6, 7, 6);
+            panelLeft.Size = new Size(217, 402);
             panelLeft.TabIndex = 1;
             // 
             // leftGrid
@@ -196,7 +205,7 @@ namespace Prototype
             leftGrid.AutoSize = true;
             leftGrid.BackColor = Color.FromArgb(30, 30, 50);
             leftGrid.ColumnCount = 2;
-            leftGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 88F));
+            leftGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 62F));
             leftGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             leftGrid.Controls.Add(lblSelectPrototype, 0, 0);
             leftGrid.Controls.Add(radioPanel, 0, 1);
@@ -207,25 +216,26 @@ namespace Prototype
             leftGrid.Controls.Add(cmbWeapon, 1, 9);
             leftGrid.Controls.Add(btnClone, 0, 11);
             leftGrid.Dock = DockStyle.Fill;
-            leftGrid.Location = new Point(10, 10);
+            leftGrid.Location = new Point(7, 6);
+            leftGrid.Margin = new Padding(2);
             leftGrid.Name = "leftGrid";
             leftGrid.RowCount = 15;
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 75F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            leftGrid.Size = new Size(290, 659);
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 23F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 12F));
+            leftGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, 12F));
+            leftGrid.Size = new Size(203, 390);
             leftGrid.TabIndex = 0;
             // 
             // lblSelectPrototype
@@ -234,9 +244,10 @@ namespace Prototype
             lblSelectPrototype.Dock = DockStyle.Fill;
             lblSelectPrototype.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblSelectPrototype.ForeColor = Color.White;
-            lblSelectPrototype.Location = new Point(3, 0);
+            lblSelectPrototype.Location = new Point(2, 0);
+            lblSelectPrototype.Margin = new Padding(2, 0, 2, 0);
             lblSelectPrototype.Name = "lblSelectPrototype";
-            lblSelectPrototype.Size = new Size(284, 40);
+            lblSelectPrototype.Size = new Size(199, 24);
             lblSelectPrototype.TabIndex = 0;
             lblSelectPrototype.Text = "Выбор прототипа:";
             lblSelectPrototype.TextAlign = ContentAlignment.BottomLeft;
@@ -249,10 +260,10 @@ namespace Prototype
             radioPanel.Controls.Add(rbCruiser);
             radioPanel.Controls.Add(rbBomber);
             radioPanel.Dock = DockStyle.Fill;
-            radioPanel.Location = new Point(0, 40);
+            radioPanel.Location = new Point(0, 24);
             radioPanel.Margin = new Padding(0);
             radioPanel.Name = "radioPanel";
-            radioPanel.Size = new Size(290, 75);
+            radioPanel.Size = new Size(203, 45);
             radioPanel.TabIndex = 1;
             // 
             // rbFighter
@@ -261,9 +272,10 @@ namespace Prototype
             rbFighter.Checked = true;
             rbFighter.Font = new Font("Segoe UI", 9F);
             rbFighter.ForeColor = Color.LightSkyBlue;
-            rbFighter.Location = new Point(3, 3);
+            rbFighter.Location = new Point(2, 2);
+            rbFighter.Margin = new Padding(2);
             rbFighter.Name = "rbFighter";
-            rbFighter.Size = new Size(139, 29);
+            rbFighter.Size = new Size(96, 19);
             rbFighter.TabIndex = 0;
             rbFighter.TabStop = true;
             rbFighter.Text = "Истребитель";
@@ -274,9 +286,10 @@ namespace Prototype
             rbCruiser.AutoSize = true;
             rbCruiser.Font = new Font("Segoe UI", 9F);
             rbCruiser.ForeColor = Color.Gold;
-            rbCruiser.Location = new Point(148, 3);
+            rbCruiser.Location = new Point(102, 2);
+            rbCruiser.Margin = new Padding(2);
             rbCruiser.Name = "rbCruiser";
-            rbCruiser.Size = new Size(105, 29);
+            rbCruiser.Size = new Size(71, 19);
             rbCruiser.TabIndex = 1;
             rbCruiser.Text = "Крейсер";
             rbCruiser.CheckedChanged += OnPrototypeChanged;
@@ -286,9 +299,10 @@ namespace Prototype
             rbBomber.AutoSize = true;
             rbBomber.Font = new Font("Segoe UI", 9F);
             rbBomber.ForeColor = Color.Salmon;
-            rbBomber.Location = new Point(3, 38);
+            rbBomber.Location = new Point(2, 25);
+            rbBomber.Margin = new Padding(2);
             rbBomber.Name = "rbBomber";
-            rbBomber.Size = new Size(187, 29);
+            rbBomber.Size = new Size(125, 19);
             rbBomber.TabIndex = 2;
             rbBomber.Text = "Бомбардировщик";
             rbBomber.CheckedChanged += OnPrototypeChanged;
@@ -299,9 +313,10 @@ namespace Prototype
             lblProperties.Dock = DockStyle.Fill;
             lblProperties.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblProperties.ForeColor = Color.FromArgb(140, 140, 170);
-            lblProperties.Location = new Point(3, 115);
+            lblProperties.Location = new Point(2, 69);
+            lblProperties.Margin = new Padding(2, 0, 2, 0);
             lblProperties.Name = "lblProperties";
-            lblProperties.Size = new Size(284, 36);
+            lblProperties.Size = new Size(199, 22);
             lblProperties.TabIndex = 2;
             lblProperties.Text = "── Свойства ──";
             lblProperties.TextAlign = ContentAlignment.BottomLeft;
@@ -313,10 +328,11 @@ namespace Prototype
             txtName.Dock = DockStyle.Fill;
             txtName.Font = new Font("Segoe UI", 9.5F);
             txtName.ForeColor = Color.White;
-            txtName.Location = new Point(91, 154);
+            txtName.Location = new Point(64, 93);
+            txtName.Margin = new Padding(2);
             txtName.MaxLength = 20;
             txtName.Name = "txtName";
-            txtName.Size = new Size(196, 33);
+            txtName.Size = new Size(137, 24);
             txtName.TabIndex = 3;
             txtName.TextChanged += OnPropertyChanged;
             // 
@@ -329,9 +345,10 @@ namespace Prototype
             cmbColor.Font = new Font("Segoe UI", 9.5F);
             cmbColor.ForeColor = Color.White;
             cmbColor.Items.AddRange(new object[] { "LightSkyBlue", "Red", "Green", "Gold", "Orange", "Magenta", "Cyan", "Lime", "Salmon", "White" });
-            cmbColor.Location = new Point(91, 322);
+            cmbColor.Location = new Point(64, 193);
+            cmbColor.Margin = new Padding(2);
             cmbColor.Name = "cmbColor";
-            cmbColor.Size = new Size(196, 33);
+            cmbColor.Size = new Size(137, 25);
             cmbColor.TabIndex = 4;
             cmbColor.SelectedIndexChanged += OnPropertyChanged;
             // 
@@ -341,9 +358,10 @@ namespace Prototype
             lblWeaponHeader.Dock = DockStyle.Fill;
             lblWeaponHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblWeaponHeader.ForeColor = Color.FromArgb(140, 140, 170);
-            lblWeaponHeader.Location = new Point(3, 361);
+            lblWeaponHeader.Location = new Point(2, 216);
+            lblWeaponHeader.Margin = new Padding(2, 0, 2, 0);
             lblWeaponHeader.Name = "lblWeaponHeader";
-            lblWeaponHeader.Size = new Size(284, 38);
+            lblWeaponHeader.Size = new Size(199, 23);
             lblWeaponHeader.TabIndex = 5;
             lblWeaponHeader.Text = "── Вооружение ──";
             lblWeaponHeader.TextAlign = ContentAlignment.BottomLeft;
@@ -357,9 +375,10 @@ namespace Prototype
             cmbWeapon.Font = new Font("Segoe UI", 9.5F);
             cmbWeapon.ForeColor = Color.White;
             cmbWeapon.Items.AddRange(new object[] { "Laser Cannon", "Plasma Turret", "Missile Rack", "Torpedo Bay", "Ion Beam" });
-            cmbWeapon.Location = new Point(91, 402);
+            cmbWeapon.Location = new Point(64, 241);
+            cmbWeapon.Margin = new Padding(2);
             cmbWeapon.Name = "cmbWeapon";
-            cmbWeapon.Size = new Size(196, 33);
+            cmbWeapon.Size = new Size(137, 25);
             cmbWeapon.TabIndex = 6;
             cmbWeapon.SelectedIndexChanged += OnPropertyChanged;
             // 
@@ -372,9 +391,10 @@ namespace Prototype
             btnClone.FlatStyle = FlatStyle.Flat;
             btnClone.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             btnClone.ForeColor = Color.White;
-            btnClone.Location = new Point(3, 486);
+            btnClone.Location = new Point(2, 291);
+            btnClone.Margin = new Padding(2);
             btnClone.Name = "btnClone";
-            btnClone.Size = new Size(284, 44);
+            btnClone.Size = new Size(199, 26);
             btnClone.TabIndex = 7;
             btnClone.Text = "Клонировать во флот";
             btnClone.UseVisualStyleBackColor = false;
@@ -384,10 +404,11 @@ namespace Prototype
             // 
             tabFleetCommand.BackColor = Color.FromArgb(20, 20, 35);
             tabFleetCommand.Controls.Add(panelFleetLayout);
-            tabFleetCommand.Location = new Point(4, 37);
+            tabFleetCommand.Location = new Point(4, 26);
+            tabFleetCommand.Margin = new Padding(2);
             tabFleetCommand.Name = "tabFleetCommand";
-            tabFleetCommand.Padding = new Padding(10);
-            tabFleetCommand.Size = new Size(1192, 679);
+            tabFleetCommand.Padding = new Padding(7, 6, 7, 6);
+            tabFleetCommand.Size = new Size(832, 402);
             tabFleetCommand.TabIndex = 1;
             tabFleetCommand.Text = "Командование флотом";
             // 
@@ -402,21 +423,23 @@ namespace Prototype
             panelFleetLayout.Controls.Add(battleZoneContainer, 1, 0);
             panelFleetLayout.Controls.Add(enemyFleetContainer, 2, 0);
             panelFleetLayout.Dock = DockStyle.Fill;
-            panelFleetLayout.Location = new Point(10, 10);
+            panelFleetLayout.Location = new Point(7, 6);
+            panelFleetLayout.Margin = new Padding(2);
             panelFleetLayout.Name = "panelFleetLayout";
             panelFleetLayout.RowCount = 1;
-            panelFleetLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            panelFleetLayout.Size = new Size(1172, 659);
+            panelFleetLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 395F));
+            panelFleetLayout.Size = new Size(818, 390);
             panelFleetLayout.TabIndex = 0;
             // 
             // playerFleetContainer
             // 
             playerFleetContainer.Controls.Add(lblPlayerFleet);
             playerFleetContainer.Dock = DockStyle.Fill;
-            playerFleetContainer.Location = new Point(3, 3);
+            playerFleetContainer.Location = new Point(2, 2);
+            playerFleetContainer.Margin = new Padding(2);
             playerFleetContainer.Name = "playerFleetContainer";
-            playerFleetContainer.Padding = new Padding(0, 0, 5, 0);
-            playerFleetContainer.Size = new Size(380, 653);
+            playerFleetContainer.Padding = new Padding(0, 0, 4, 0);
+            playerFleetContainer.Size = new Size(265, 391);
             playerFleetContainer.TabIndex = 0;
             // 
             // lblPlayerFleet
@@ -425,8 +448,9 @@ namespace Prototype
             lblPlayerFleet.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblPlayerFleet.ForeColor = Color.White;
             lblPlayerFleet.Location = new Point(0, 0);
+            lblPlayerFleet.Margin = new Padding(2, 0, 2, 0);
             lblPlayerFleet.Name = "lblPlayerFleet";
-            lblPlayerFleet.Size = new Size(375, 38);
+            lblPlayerFleet.Size = new Size(261, 23);
             lblPlayerFleet.TabIndex = 0;
             lblPlayerFleet.Text = "Флот игрока:";
             lblPlayerFleet.TextAlign = ContentAlignment.MiddleCenter;
@@ -437,10 +461,11 @@ namespace Prototype
             battleZoneContainer.Controls.Add(panelBattleButtons);
             battleZoneContainer.Controls.Add(lblBattleLog);
             battleZoneContainer.Dock = DockStyle.Fill;
-            battleZoneContainer.Location = new Point(389, 3);
+            battleZoneContainer.Location = new Point(271, 2);
+            battleZoneContainer.Margin = new Padding(2);
             battleZoneContainer.Name = "battleZoneContainer";
-            battleZoneContainer.Padding = new Padding(5, 0, 5, 0);
-            battleZoneContainer.Size = new Size(392, 653);
+            battleZoneContainer.Padding = new Padding(4, 0, 4, 0);
+            battleZoneContainer.Size = new Size(274, 391);
             battleZoneContainer.TabIndex = 1;
             // 
             // txtBattleLog
@@ -450,12 +475,13 @@ namespace Prototype
             txtBattleLog.Dock = DockStyle.Fill;
             txtBattleLog.Font = new Font("Consolas", 9F);
             txtBattleLog.ForeColor = Color.LightGreen;
-            txtBattleLog.Location = new Point(5, 38);
+            txtBattleLog.Location = new Point(4, 23);
+            txtBattleLog.Margin = new Padding(2);
             txtBattleLog.Multiline = true;
             txtBattleLog.Name = "txtBattleLog";
             txtBattleLog.ReadOnly = true;
             txtBattleLog.ScrollBars = ScrollBars.Vertical;
-            txtBattleLog.Size = new Size(382, 475);
+            txtBattleLog.Size = new Size(266, 272);
             txtBattleLog.TabIndex = 0;
             txtBattleLog.Text = "Нажмите «В бой!» чтобы начать сражение.\r\n\r\nВаш флот сразится со случайно сгенерированным флотом врага.\r\n\r\nСкорость определяет порядок ходов.\r\nУрон сначала снижает щит, затем корпус.";
             // 
@@ -466,10 +492,11 @@ namespace Prototype
             panelBattleButtons.Controls.Add(btnRepair);
             panelBattleButtons.Controls.Add(btnBattle);
             panelBattleButtons.Dock = DockStyle.Bottom;
-            panelBattleButtons.Location = new Point(5, 513);
+            panelBattleButtons.Location = new Point(4, 295);
+            panelBattleButtons.Margin = new Padding(2);
             panelBattleButtons.Name = "panelBattleButtons";
-            panelBattleButtons.Padding = new Padding(10, 5, 10, 5);
-            panelBattleButtons.Size = new Size(382, 140);
+            panelBattleButtons.Padding = new Padding(7, 3, 7, 3);
+            panelBattleButtons.Size = new Size(266, 96);
             panelBattleButtons.TabIndex = 1;
             // 
             // btnClearFleet
@@ -480,9 +507,10 @@ namespace Prototype
             btnClearFleet.FlatStyle = FlatStyle.Flat;
             btnClearFleet.Font = new Font("Segoe UI", 9.5F);
             btnClearFleet.ForeColor = Color.White;
-            btnClearFleet.Location = new Point(10, 77);
+            btnClearFleet.Location = new Point(7, 69);
+            btnClearFleet.Margin = new Padding(2);
             btnClearFleet.Name = "btnClearFleet";
-            btnClearFleet.Size = new Size(362, 32);
+            btnClearFleet.Size = new Size(252, 30);
             btnClearFleet.TabIndex = 0;
             btnClearFleet.Text = "Очистить флот";
             btnClearFleet.UseVisualStyleBackColor = false;
@@ -496,9 +524,10 @@ namespace Prototype
             btnRepair.FlatStyle = FlatStyle.Flat;
             btnRepair.Font = new Font("Segoe UI", 9.5F);
             btnRepair.ForeColor = Color.White;
-            btnRepair.Location = new Point(10, 45);
+            btnRepair.Location = new Point(7, 39);
+            btnRepair.Margin = new Padding(2);
             btnRepair.Name = "btnRepair";
-            btnRepair.Size = new Size(362, 32);
+            btnRepair.Size = new Size(252, 30);
             btnRepair.TabIndex = 1;
             btnRepair.Text = "🔧 Ремонт флота";
             btnRepair.UseVisualStyleBackColor = false;
@@ -512,9 +541,10 @@ namespace Prototype
             btnBattle.FlatStyle = FlatStyle.Flat;
             btnBattle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnBattle.ForeColor = Color.White;
-            btnBattle.Location = new Point(10, 5);
+            btnBattle.Location = new Point(7, 3);
+            btnBattle.Margin = new Padding(2);
             btnBattle.Name = "btnBattle";
-            btnBattle.Size = new Size(362, 40);
+            btnBattle.Size = new Size(252, 36);
             btnBattle.TabIndex = 2;
             btnBattle.Text = "⚔ В бой!";
             btnBattle.UseVisualStyleBackColor = false;
@@ -525,9 +555,10 @@ namespace Prototype
             lblBattleLog.Dock = DockStyle.Top;
             lblBattleLog.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblBattleLog.ForeColor = Color.White;
-            lblBattleLog.Location = new Point(5, 0);
+            lblBattleLog.Location = new Point(4, 0);
+            lblBattleLog.Margin = new Padding(2, 0, 2, 0);
             lblBattleLog.Name = "lblBattleLog";
-            lblBattleLog.Size = new Size(382, 38);
+            lblBattleLog.Size = new Size(266, 23);
             lblBattleLog.TabIndex = 2;
             lblBattleLog.Text = "Журнал боя:";
             lblBattleLog.TextAlign = ContentAlignment.MiddleCenter;
@@ -536,10 +567,11 @@ namespace Prototype
             // 
             enemyFleetContainer.Controls.Add(lblEnemyFleet);
             enemyFleetContainer.Dock = DockStyle.Fill;
-            enemyFleetContainer.Location = new Point(787, 3);
+            enemyFleetContainer.Location = new Point(549, 2);
+            enemyFleetContainer.Margin = new Padding(2);
             enemyFleetContainer.Name = "enemyFleetContainer";
-            enemyFleetContainer.Padding = new Padding(5, 0, 0, 0);
-            enemyFleetContainer.Size = new Size(382, 653);
+            enemyFleetContainer.Padding = new Padding(4, 0, 0, 0);
+            enemyFleetContainer.Size = new Size(267, 391);
             enemyFleetContainer.TabIndex = 2;
             // 
             // lblEnemyFleet
@@ -547,22 +579,24 @@ namespace Prototype
             lblEnemyFleet.Dock = DockStyle.Top;
             lblEnemyFleet.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblEnemyFleet.ForeColor = Color.FromArgb(255, 100, 100);
-            lblEnemyFleet.Location = new Point(5, 0);
+            lblEnemyFleet.Location = new Point(4, 0);
+            lblEnemyFleet.Margin = new Padding(2, 0, 2, 0);
             lblEnemyFleet.Name = "lblEnemyFleet";
-            lblEnemyFleet.Size = new Size(377, 38);
+            lblEnemyFleet.Size = new Size(263, 23);
             lblEnemyFleet.TabIndex = 0;
             lblEnemyFleet.Text = "Флот врага:";
             lblEnemyFleet.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(20, 20, 35);
-            ClientSize = new Size(1200, 720);
+            ClientSize = new Size(840, 432);
             Controls.Add(tabControl);
             DoubleBuffered = true;
-            MinimumSize = new Size(1000, 650);
+            Margin = new Padding(2);
+            MinimumSize = new Size(705, 406);
             Name = "Form1";
             Text = "Строитель Флота — Паттерн Прототип";
             tabControl.ResumeLayout(false);
