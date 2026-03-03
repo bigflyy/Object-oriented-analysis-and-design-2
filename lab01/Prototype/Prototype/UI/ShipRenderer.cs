@@ -62,9 +62,9 @@ namespace Prototype.UI
 
             // Вычисляем центр и размеры области рисования
             // Сдвигаем центр влево, чтобы оружие (ионный луч и т.д.) не выходило за правый край
-            int cx = bounds.X + bounds.Width / 2 - bounds.Width / 8;
+            int cx = bounds.X + bounds.Width / 2 - 15;
             int cy = bounds.Y + bounds.Height / 2;
-            int w = bounds.Width - 20 - bounds.Width / 4;  // уменьшаем ширину корпуса, оставляя место для оружия
+            int w = bounds.Width - 50;
             int h = bounds.Height - 20;
 
             // Создаём кисть и перо в цвете корабля
