@@ -53,7 +53,12 @@ private:
     // Фоновый запуск sd-webui если не запущен.
     // Ждём до 60 секунд — загрузка модели Stable Diffusion занимает время.
     void startSdWebuiBackground() {
-        if (checkAvailability()) { available = true; return; }
+        if (checkAvailability()) {
+            std::cout << "[IMG] sd-webui уже запущен" << std::endl;
+            available = true;
+            return;
+        }
+        std::cout << "[IMG] Запуск sd-webui..." << std::endl;
         STARTUPINFOA startupInfo = { sizeof(startupInfo) };
         startupInfo.dwFlags = STARTF_USESHOWWINDOW;
         startupInfo.wShowWindow = SW_MINIMIZE;
@@ -65,10 +70,19 @@ private:
                            "C:\\MyProjects\\sd-webui-forge-neo", &startupInfo, &processInfo)) {
             CloseHandle(processInfo.hThread);
             CloseHandle(processInfo.hProcess);
-            for (int i = 0; i < 60; ++i) {
+            // Ждём до 300 секунд — загрузка модели занимает время
+            for (int i = 0; i < 300; ++i) {
                 Sleep(1000);
-                if (checkAvailability()) { available = true; return; }
+                if (i % 10 == 0) std::cout << "[IMG] Ожидание sd-webui... " << i << " сек" << std::endl;
+                if (checkAvailability()) {
+                    std::cout << "[IMG] sd-webui готов!" << std::endl;
+                    available = true;
+                    return;
+                }
             }
+            std::cout << "[IMG] sd-webui не запустился за 300 секунд!" << std::endl;
+        } else {
+            std::cout << "[IMG] Не удалось запустить sd-webui (CreateProcess failed)" << std::endl;
         }
     }
 

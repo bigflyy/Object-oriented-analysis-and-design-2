@@ -184,9 +184,17 @@ public:
         // LLM: начальные сущности
         auto entities = llm.createInitialWorld(memoryManager.plot);
 
-        // ImageClient: изображения для каждой сущности
+        // ImageClient: ожидание готовности и генерация изображений
         llm.unloadFromVRAM();
-        for (int i = 0; i < 60 && !imgGenerator.isAvailable(); ++i) Sleep(1000);
+        std::cout << "[Facade] Ожидание sd-webui..." << std::endl;
+        for (int i = 0; i < 300 && !imgGenerator.isAvailable(); ++i) {
+            Sleep(1000);
+            if (i % 10 == 0) std::cout << "[Facade] sd-webui не готов, ждём... " << i << " сек" << std::endl;
+        }
+        if (imgGenerator.isAvailable())
+            std::cout << "[Facade] sd-webui готов, генерация изображений" << std::endl;
+        else
+            std::cout << "[Facade] sd-webui недоступен, пропуск генерации" << std::endl;
         for (auto& entity : entities) {
             bool isNpc = (toLower(entity.type) == "npc");
             std::string image = imgGenerator.generateImage(entity.description, "", isNpc ? 512 : 768, 768, isNpc);
