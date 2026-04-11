@@ -46,6 +46,10 @@ class FleaMarketManager:
     
     def list_item(self, item: Loot, price: float, sell_time: float) -> bool:
         """List an item for sale. Returns True if successfully listed."""
+        # Can't list an item that's already on sale
+        if self.is_listed(item):
+            return False
+
         # First, clear sold slots
         self._collect_sold_items()
         

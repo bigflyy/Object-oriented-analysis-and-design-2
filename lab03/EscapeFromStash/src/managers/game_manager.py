@@ -52,7 +52,7 @@ class Config:
     # === STASH ===
     STASH_COLS = 10
     STASH_ROWS = 10
-    STASH_UPGRADE_ROWS = 2
+    STASH_UPGRADE_ROWS = 1
 
 
 class GameManager:
@@ -313,17 +313,23 @@ class GameManager:
         old_sx, old_sy = item.size_x, item.size_y
         old_rotation = item._rotation
 
-        # Rotate the item
-        item.rotate()
+        # Temporarily change dimensions to check fit
+        item.size_x, item.size_y = old_sy, old_sx
+        item._rotation = (old_rotation + 90) % 360
 
-        # Check if rotated item fits at same position
-        # Temporarily clear its cells in a copy check (don't modify stash)
-        fits = self.stash._can_place_at_rotated(item, col, row, old_sx, old_sy)
+        fits = self.stash._can_place_at(item, col, row)
 
         if fits:
             # Actually re-place with new dimensions
-            self.stash.remove_item(item)
-            self.stash.add_item(item, col, row)
+            # Clear old cells manually (since item now has new dimensions)
+            for dy in range(old_sy):
+                for dx in range(old_sx):
+                    r, c = row + dy, col + dx
+                    if 0 <= r < self.stash._rows and 0 <= c < self.stash._cols:
+                        if self.stash._grid[r][c] is item:
+                            self.stash._grid[r][c] = None
+            self.stash._items = [(inv, ic, ir) for inv, ic, ir in self.stash._items if inv is not item]
+            self.stash._place_item(item, col, row)
             self.log(f"Rotated {item.name}")
         else:
             # Revert
@@ -349,7 +355,7 @@ class GameManager:
         if self.market.is_listed(item):
             self.flash_feedback("Item is on market!", "warn")
             return
-        pos = self.stash.pick_up_item(item)
+        pos = self.stash.find_item_position(item)
         if pos is not None:
             self._dragging_item = item
             self._drag_origin_col = col
@@ -359,7 +365,10 @@ class GameManager:
         """Try to place dragged item. Returns True if placed."""
         if self._dragging_item is None:
             return False
-        success = self.stash.remove_and_place(self._dragging_item, col, row)
+        success = self.stash.remove_and_place(
+            self._dragging_item, col, row,
+            self._drag_origin_col, self._drag_origin_row
+        )
         self._dragging_item = None
         return success
 

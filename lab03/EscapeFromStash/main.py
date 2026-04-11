@@ -2,10 +2,6 @@
 import os
 import sys
 import pygame
-
-# Add parent dir to path so imports work
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from src.managers.game_manager import GameManager
 from src.ui.renderer import Renderer
 
@@ -53,8 +49,6 @@ class GameClient:
                     self._handle_mouse_down(event)
                 elif event.type == pygame.MOUSEBUTTONUP:
                     self._handle_mouse_up(event)
-                elif event.type == pygame.MOUSEMOTION:
-                    self._handle_mouse_motion(event)
                 elif event.type == pygame.MOUSEWHEEL:
                     self._renderer.scroll(event.x, event.y)
             
@@ -97,11 +91,9 @@ class GameClient:
         return col, row
 
     def _handle_mouse_down(self, event):
-        """Handle mouse button down - start drag on left click."""
-        if event.button != 1:  # Left click only for dragging
-            self._handle_mouse(event)
+        """Handle mouse click - dispatch by button type."""
+        if event.button not in (1, 2, 3):
             return
-
         if self._game.is_game_over:
             return
 
@@ -114,18 +106,28 @@ class GameClient:
         if clicked_item is None:
             return
 
-        # Left click: handle interaction modes first, then drag
-        if self._game.is_targeting:
-            self._game.fire_at_stash_item(clicked_item)
-            return
-        elif self._game.is_selecting_ammo:
-            from src.models import Weapon
-            if isinstance(clicked_item, Weapon) and clicked_item in self._game.compatible_weapons:
-                self._game.load_ammo_into(clicked_item)
-                return
+        # Left click: targeting, ammo selection, or drag start
+        if event.button == 1:
+            if self._game.is_targeting:
+                self._game.fire_at_stash_item(clicked_item)
+            elif self._game.is_selecting_ammo:
+                from src.models import Weapon
+                if isinstance(clicked_item, Weapon) and clicked_item in self._game.compatible_weapons:
+                    self._game.load_ammo_into(clicked_item)
+            elif not self._game.is_dragging:
+                self._game.drag_start(clicked_item, col, row)
 
-        # Left click: start drag
-        self._game.drag_start(clicked_item, col, row)
+        # Middle click: rotate
+        elif event.button == 2:
+            self._game.rotate_item(clicked_item)
+
+        # Right click: use or sell
+        elif event.button == 3:
+            mods = pygame.key.get_mods()
+            if mods & pygame.KMOD_SHIFT:
+                self._game.sell_item(clicked_item)
+            else:
+                self._game.use_item(clicked_item)
 
     def _handle_mouse_up(self, event):
         """Handle mouse button up - place dragged item."""
@@ -137,56 +139,6 @@ class GameClient:
                 self._game.drag_place(col, row)
             else:
                 self._game.drag_cancel()
-
-    def _handle_mouse_motion(self, event):
-        """Update drag position for rendering."""
-        pass  # Just need pos for rendering, handled in renderer
-
-    def _handle_mouse(self, event):
-        """Handle right/middle click."""
-        if event.button not in (1, 2, 3):
-            return
-
-        if self._game.is_game_over or self._game.is_dragging:
-            return
-
-        cell_size = Renderer.CELL_SIZE
-        stash_x = 5
-        stash_y = 5
-
-        mx, my = event.pos
-        # Compensate for camera scroll offset
-        col = (mx - stash_x - self._renderer._camera_x) // cell_size
-        row = (my - stash_y - self._renderer._camera_y) // cell_size
-        
-        stash = self._game.stash
-        if not (0 <= col < stash.cols and 0 <= row < stash.rows):
-            return
-        
-        clicked_item = stash.get_item_at(col, row)
-        if clicked_item is None:
-            return
-        
-        # Left click in interaction modes
-        if event.button == 1:
-            if self._game.is_targeting:
-                self._game.fire_at_stash_item(clicked_item)
-                return
-            elif self._game.is_selecting_ammo:
-                from src.models import Weapon
-                if isinstance(clicked_item, Weapon) and clicked_item in self._game.compatible_weapons:
-                    self._game.load_ammo_into(clicked_item)
-                    return
-        
-        # Right click - Use or Sell
-        if event.button == 3:
-            mods = pygame.key.get_mods()
-            if mods & pygame.KMOD_SHIFT:
-                # Sell
-                self._game.sell_item(clicked_item)
-            else:
-                # Use
-                self._game.use_item(clicked_item)
 
 
 def main():
