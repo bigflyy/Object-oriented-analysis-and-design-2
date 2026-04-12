@@ -19,14 +19,14 @@ class Weapon(Loot):
         caliber: str = "5.56x45",
         magazine_size: int = 30,
         loaded_ammo: int = 0,
-        direction: str = "right"
+
     ):
         super().__init__(size_x, size_y, base_price, name)
         self._durability = durability
         self._caliber = caliber
         self._magazine_size = magazine_size
         self._loaded_ammo = loaded_ammo
-        self._direction = direction 
+
     
     @property
     def durability(self) -> int:

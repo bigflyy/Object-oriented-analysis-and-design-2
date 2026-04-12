@@ -97,14 +97,14 @@ class Renderer:
 
         self._render_stash_grid(game, stash_x, stash_y)
 
-        stash_right = stash_x + game.player.stash.cols * self.CELL_SIZE + self.GRID_PADDING * 3
+        stash_right = stash_x + game.stash.cols * self.CELL_SIZE + self.GRID_PADDING * 3
 
         # Split right side into two columns
         col_w = 300
         self._render_player_info(game, stash_right, stash_y)
         self._render_flea_market(game, stash_right + col_w, stash_y)
         self._render_action_buttons(game, stash_right + col_w, stash_y + 250)
-        self._render_log(game, stash_y + game.player.stash.rows * self.CELL_SIZE + self.GRID_PADDING * 2)
+        self._render_log(game, stash_y + game.stash.rows * self.CELL_SIZE + self.GRID_PADDING * 2)
         
         # Flash feedback overlay
         if game._feedback:
@@ -139,7 +139,7 @@ class Renderer:
     
     def _render_stash_grid(self, game: GameManager, x: int, y: int):
         """Render the stash grid with items."""
-        stash = game.player.stash
+        stash = game.stash
         cell = self.CELL_SIZE
         ox = self._camera_x
         oy = self._camera_y
@@ -435,14 +435,14 @@ class Renderer:
         cell = self.CELL_SIZE
 
         # Highlight valid drop cells
-        for row in range(game.player.stash.rows):
-            for col in range(game.player.stash.cols):
-                if game.player.stash._can_place_at(item, col, row):
+        for row in range(game.stash.rows):
+            for col in range(game.stash.cols):
+                if game.stash._can_place_at(item, col, row):
                     for dy in range(item.size_y):
                         for dx in range(item.size_x):
                             cr = row + dy
                             cc = col + dx
-                            if 0 <= cr < game.player.stash.rows and 0 <= cc < game.player.stash.cols:
+                            if 0 <= cr < game.stash.rows and 0 <= cc < game.stash.cols:
                                 cr2 = x + cc * cell + self._camera_x
                                 cy2 = y + cr * cell + self._camera_y
                                 hl = pygame.Rect(cr2, cy2, cell, cell)

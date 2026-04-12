@@ -81,6 +81,3 @@ class Loot(ABC):
     def accept(self, visitor: 'Visitor') -> None:
         """Accept a visitor (double dispatch)."""
         pass
-    
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self._name}, {self._size_x}x{self._size_y})"

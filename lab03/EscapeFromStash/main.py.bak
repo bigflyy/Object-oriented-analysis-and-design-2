@@ -86,8 +86,8 @@ class GameClient:
             # Rotate item under cursor
             mx, my = pygame.mouse.get_pos()
             col, row = self._get_grid_pos((mx, my))
-            if 0 <= col < self._game.player.stash.cols and 0 <= row < self._game.player.stash.rows:
-                item = self._game.player.stash.get_item_at(col, row)
+            if 0 <= col < self._game.stash.cols and 0 <= row < self._game.stash.rows:
+                item = self._game.stash.get_item_at(col, row)
                 if item is not None:
                     self._game.rotate_item(item)
     
@@ -108,7 +108,7 @@ class GameClient:
             return
 
         col, row = self._get_grid_pos(event.pos)
-        stash = self._game.player.stash
+        stash = self._game.stash
         if not (0 <= col < stash.cols and 0 <= row < stash.rows):
             return
 
@@ -145,7 +145,7 @@ class GameClient:
             return
         if self._game.is_dragging:
             col, row = self._get_grid_pos(event.pos)
-            if 0 <= col < self._game.player.stash.cols and 0 <= row < self._game.player.stash.rows:
+            if 0 <= col < self._game.stash.cols and 0 <= row < self._game.stash.rows:
                 self._game.drag_place(col, row)
             else:
                 self._game.drag_cancel()

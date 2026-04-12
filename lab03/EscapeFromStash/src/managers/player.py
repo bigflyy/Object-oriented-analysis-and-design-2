@@ -1,11 +1,12 @@
 """Player class - manages character state."""
 from typing import Dict, Optional
 from src.models import Armor
+from src.managers.stash import Stash
 
 
 class Player:
     """Player character with HP zones, hunger, money, and equipped armor."""
-    
+
     # Zone HP values
     ZONE_HP = {
         "head": 35,
@@ -13,10 +14,11 @@ class Player:
         "stomach": 70,
         "legs": 65,
     }
-    
+
     CRITICAL_ZONES = {"head", "thorax"}
-    
-    def __init__(self, starting_money: float = 150000.0):
+
+    def __init__(self, stash: Stash, starting_money: float = 150000.0):
+        self.stash = stash  # Player owns the stash
         self._hp: Dict[str, int] = dict(self.ZONE_HP)
         self._hunger: float = 100.0
         self._money: float = starting_money
