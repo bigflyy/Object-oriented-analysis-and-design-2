@@ -3,6 +3,8 @@
 Each tuple is: (name, size_x, size_y, base_price, ...rest)
 Tweak prices, sizes, and stats here.
 """
+import random
+from src.models import Weapon, Consumable, Armor, Ammo, Loot
 
 # === WEAPONS ===
 # (name, sx, sy, base_price, caliber, magazine_size)

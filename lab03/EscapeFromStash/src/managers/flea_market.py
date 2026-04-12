@@ -27,6 +27,11 @@ class FleaMarketSlot:
             return 1.0
         return min(1.0, self.elapsed_time / self.sell_time)
 
+    @property
+    def time_left(self) -> float:
+        """Time remaining in seconds."""
+        return max(0, self.sell_time - self.elapsed_time)
+
 
 class FleaMarketManager:
     """Manages the flea market with 3 slots and timed sales."""
@@ -81,29 +86,14 @@ class FleaMarketManager:
         
         return earnings
     
-    def cancel_listing(self, index: int) -> Optional[Loot]:
-        """Cancel a listing and return the item."""
-        if 0 <= index < self.MAX_SLOTS and self._slots[index] is not None:
-            item = self._slots[index].item
-            self._slots[index] = None
-            return item
-        return None
-    
     def _collect_sold_items(self):
         """Remove sold items from slots."""
         for i in range(self.MAX_SLOTS):
             if self._slots[i] is not None and self._slots[i].sold:
                 self._slots[i] = None
     
-    def get_slot_info(self, index: int) -> Optional[dict]:
+    def get_slot_info(self, index: int) -> Optional['FleaMarketSlot']:
         """Get info about a specific slot."""
-        if 0 <= index < self.MAX_SLOTS and self._slots[index] is not None:
-            slot = self._slots[index]
-            return {
-                "item": slot.item,
-                "price": slot.price,
-                "progress": slot.progress,
-                "sold": slot.sold,
-                "time_left": max(0, slot.sell_time - slot.elapsed_time),
-            }
+        if 0 <= index < self.MAX_SLOTS:
+            return self._slots[index]
         return None

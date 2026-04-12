@@ -9,7 +9,7 @@ class Player:
     # Zone HP values
     ZONE_HP = {
         "head": 35,
-        "thorax": 80,
+        "thorax": 85,
         "stomach": 70,
         "legs": 65,
     }
@@ -61,8 +61,8 @@ class Player:
             if equipped is not None and zone in equipped.zones:
                 equipped.current_durability -= damage
                 if equipped.current_durability <= 0:
-                    for slot, arm in list(self._equipped_armor.items()):
-                        if arm is equipped:
+                    for slot, armor in list(self._equipped_armor.items()):
+                        if armor is equipped:
                             self._equipped_armor[slot] = None
                 return False
         

@@ -7,7 +7,7 @@ from src.managers.player import Player
 from src.managers.stash import Stash
 from src.managers.flea_market import FleaMarketManager
 from src.visitors.sell_visitor import SellVisitor
-from src.visitors.use_visitor import UseVisitor
+from src.visitors.use_visitor import UseVisitor, UseContext
 from src import catalog
 
 
@@ -66,8 +66,17 @@ class GameManager:
         self.player = Player()
         self.stash = Stash(cols=Config.STASH_COLS, rows=Config.STASH_ROWS)
         self.market = FleaMarketManager()
+        
+        # Break circular dependency by passing a Context object
+        ctx = UseContext(
+            player=self.player, stash=self.stash, market=self.market,
+            log_fn=self.log, flash_fn=self.flash_feedback,
+            targeting_fn=self.enter_targeting_mode, 
+            ammo_select_fn=self.enter_ammo_selection_mode,
+            mark_removal_fn=self.mark_for_removal
+        )
         self.sell_visitor = SellVisitor(self.market)
-        self.use_visitor = UseVisitor(self)
+        self.use_visitor = UseVisitor(ctx)
         
         self._log_messages: List[str] = []
         self._game_over = False

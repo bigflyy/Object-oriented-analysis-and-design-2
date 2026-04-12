@@ -354,23 +354,22 @@ class Renderer:
             slot_y = y + 28 + i * 50
             slot_rect = pygame.Rect(x, slot_y, 250, 45)
             
-            info = game.market.get_slot_info(i)
-            if info is not None:
+            slot = game.market.get_slot_info(i)
+            if slot is not None:
                 pygame.draw.rect(self._screen, self.COLOR_MARKET_SLOT, slot_rect)
                 pygame.draw.rect(self._screen, self.COLOR_GRID_BORDER, slot_rect, 1)
-                
-                item = info["item"]
-                name_surf = self._font.render(f"{item.name} - {info['price']:.0f}\u20BD", True, self.COLOR_TEXT)
+
+                name_surf = self._font.render(f"{slot.item.name} - {slot.price:.0f}\u20BD", True, self.COLOR_TEXT)
                 self._screen.blit(name_surf, (x + 5, slot_y + 3))
-                
+
                 # Progress bar
                 bar_rect = pygame.Rect(x + 5, slot_y + 28, 200, 8)
                 pygame.draw.rect(self._screen, self.COLOR_GRID, bar_rect)
                 pygame.draw.rect(self._screen, self.COLOR_MARKET_PROGRESS,
-                                 (bar_rect.x, bar_rect.y, int(200 * info["progress"]), bar_rect.h))
+                                 (bar_rect.x, bar_rect.y, int(200 * slot.progress), bar_rect.h))
                 
-                if info["progress"] < 1.0:
-                    time_surf = self._font_small.render(f"{info['time_left']:.0f}s left", True, self.COLOR_TEXT_DIM)
+                if slot.progress < 1.0:
+                    time_surf = self._font_small.render(f"{slot.time_left:.0f}s left", True, self.COLOR_TEXT_DIM)
                     self._screen.blit(time_surf, (x + 210, slot_y + 25))
             else:
                 pygame.draw.rect(self._screen, self.COLOR_MARKET_SLOT, slot_rect, 1)
