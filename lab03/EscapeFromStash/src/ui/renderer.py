@@ -110,11 +110,7 @@ class Renderer:
         self._render_player_info(game, stash_right, stash_y)
         self._render_flea_market(game, stash_right + col_w, stash_y)
         self._render_action_buttons(game, stash_right + col_w, stash_y + 250)
-        
-        # Log fixed at the bottom of the screen
-        log_y = self._screen.get_height() - 130
-        self._render_log(game, log_y)
-        
+
         # Flash feedback overlay
         if game._feedback:
             text, color, timer = game._feedback[0]
@@ -143,7 +139,11 @@ class Renderer:
         # Game over
         if game.is_game_over:
             self._render_game_over(game)
-        
+
+        # Log fixed at the bottom (drawn LAST so it stays on top of overlays)
+        log_y = self._screen.get_height() - 130
+        self._render_log(game, log_y)
+
         pygame.display.flip()
     
     def _render_stash_grid(self, game: GameManager, x: int, y: int):
@@ -477,7 +477,17 @@ class Renderer:
             scale_factor = 0.85
             target_w = int(item_rect.width * scale_factor)
             target_h = int(item_rect.height * scale_factor)
-            scaled = pygame.transform.scale(img, (target_w, target_h))
+            
+            # Fix aspect ratio for 90/270 rotation
+            # If vertical, we must scale the horizontal image to (H, W) before rotating
+            if item.rotation % 180 != 0:
+                scaled = pygame.transform.scale(img, (target_h, target_w))
+                scaled = pygame.transform.rotate(scaled, -item.rotation)
+            else:
+                scaled = pygame.transform.scale(img, (target_w, target_h))
+                if item.rotation != 0:
+                    scaled = pygame.transform.rotate(scaled, -item.rotation)
+                    
             ix = item_rect.x + (item_rect.width - scaled.get_width()) // 2
             iy = item_rect.y + (item_rect.height - scaled.get_height()) // 2
             self._screen.blit(scaled, (ix, iy))
