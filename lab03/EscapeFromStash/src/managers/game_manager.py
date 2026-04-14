@@ -21,7 +21,8 @@ class Config:
     RAID_INTERVAL = 5.0           # Raid/shot attempt
 
     # === ECONOMY ===
-    RENT_COST = 100000.0
+    BASE_RENT_COST = 100000.0
+    UPGRADE_RENT_INCREASE = 10000.0
     STASH_UPGRADE_COST = 50000.0
 
     # === SURVIVAL ===
@@ -63,7 +64,8 @@ class GameManager:
     """
 
     def __init__(self):
-        stash = Stash(cols=Config.STASH_COLS, rows=Config.STASH_ROWS)
+        stash = Stash(rent_cost = Config.BASE_RENT_COST, upgrade_rent_increase=Config.UPGRADE_RENT_INCREASE, 
+                      cols=Config.STASH_COLS, rows=Config.STASH_ROWS)
         self.player = Player(stash=stash)
         self.market = FleaMarketManager()
         self.sell_visitor = SellVisitor(self.market)
@@ -157,10 +159,10 @@ class GameManager:
         # Rent check
         if self._rent_timer >= Config.RENT_INTERVAL:
             self._rent_timer = 0.0
-            self.player.money -= Config.RENT_COST
+            self.player.money -= self.player.stash.rent_cost
             self.player.rents_paid += 1
-            self.log(f"Stash rent: -{Config.RENT_COST:.0f}₽ (#{self.player.rents_paid})")
-            self.flash_feedback(f"RENT: -{Config.RENT_COST:.0f}₽", "yellow")
+            self.log(f"Stash rent: -{self.player.stash.rent_cost:.0f}₽ (#{self.player.rents_paid})")
+            self.flash_feedback(f"RENT: -{self.player.stash.rent_cost:.0f}₽", "yellow")
             if self.player.money < 0:
                 self._end_game("Cannot afford stash rent!")
         
