@@ -23,7 +23,7 @@ class Config:
     # === ECONOMY ===
     BASE_RENT_COST = 100000.0
     UPGRADE_RENT_INCREASE = 10000.0
-    STASH_UPGRADE_COST = 50000.0
+    STASH_UPGRADE_COST = 1.0
 
     # === SURVIVAL ===
     HUNGER_DECAY = 10.0            # Per tick

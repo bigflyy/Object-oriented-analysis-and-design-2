@@ -56,7 +56,8 @@ class GameClient:
                 elif event.type == pygame.MOUSEBUTTONUP:
                     self._handle_mouse_up(event)
                 elif event.type == pygame.MOUSEWHEEL:
-                    self._renderer.scroll(event.x, event.y)
+                    rows = self._game.player.stash.rows
+                    self._renderer.scroll(event.x, event.y, rows)
             
             if not self._game.is_game_over:
                 self._game.update(dt)
