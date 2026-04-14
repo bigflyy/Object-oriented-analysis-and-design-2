@@ -47,13 +47,19 @@ class Renderer:
         self._camera_y = 0
         self._load_images()
 
-    def scroll(self, dx: float, dy: float):
+    def scroll(self, dx: float, dy: float, stash_rows: int = 10):
         """Scroll the stash grid with mouse wheel."""
         self._camera_y += int(dy * 30)
         self._camera_x += int(dx * 30)
-        # Clamp so grid always covers full visible area
-        self._camera_y = min(0, max(self._camera_y, -200))
+        
+        # Clamp X
         self._camera_x = min(0, max(self._camera_x, -200))
+        
+        # Clamp Y: dynamic based on actual stash height
+        stash_height = stash_rows * self.CELL_SIZE
+        visible_height = self._screen.get_height()
+        max_scroll = max(0, stash_height - visible_height + 150)
+        self._camera_y = min(0, max(self._camera_y, -max_scroll))
     
     def _load_images(self):
         """Load all images from assets/images directory."""
@@ -104,7 +110,10 @@ class Renderer:
         self._render_player_info(game, stash_right, stash_y)
         self._render_flea_market(game, stash_right + col_w, stash_y)
         self._render_action_buttons(game, stash_right + col_w, stash_y + 250)
-        self._render_log(game, stash_y + game.player.stash.rows * self.CELL_SIZE + self.GRID_PADDING * 2)
+        
+        # Log fixed at the bottom of the screen
+        log_y = self._screen.get_height() - 130
+        self._render_log(game, log_y)
         
         # Flash feedback overlay
         if game._feedback:

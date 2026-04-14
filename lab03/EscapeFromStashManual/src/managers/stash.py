@@ -6,11 +6,13 @@ from src.models import Loot
 class Stash:
     """Grid-based inventory. Items are placed on a 2D grid."""
 
-    def __init__(self, cols: int = 10, rows: int = 12):
+    def __init__(self, rent_cost: float, upgrade_rent_increase: float, cols: int = 10, rows: int = 12):
         self._cols = cols
         self._rows = rows
         self._grid: List[List[Optional[Loot]]] = [[None] * cols for _ in range(rows)]
         self._items: List[Tuple[Loot, int, int]] = []  # (item, col, row)
+        self.rent_cost = rent_cost
+        self.upgrade_rent_increase = upgrade_rent_increase
 
     @property
     def cols(self) -> int:
@@ -80,6 +82,7 @@ class Stash:
             for c in range(min(len(self._grid[0]), self._cols)):
                 new_grid[r][c] = self._grid[r][c]
         self._grid = new_grid
+        self.rent_cost += self.upgrade_rent_increase
 
     def _can_place_at(self, item: Loot, col: int, row: int) -> bool:
         """Check if item can be placed at position, ignoring its own cells.
